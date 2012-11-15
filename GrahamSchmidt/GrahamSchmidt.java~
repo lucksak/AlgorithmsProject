@@ -24,7 +24,7 @@ public class GrahamSchmidt extends JFrame {
 
    while(temp < 500){
       
-      g.drawLine(temp+7,0,temp+7,500);
+      g.drawLine(temp+5,0,temp+5,500);
       g.drawLine(0,temp-7,500,temp-7);
       temp += 15;
    }
