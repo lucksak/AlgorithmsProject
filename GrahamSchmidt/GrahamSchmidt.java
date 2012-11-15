@@ -1,6 +1,6 @@
 /**
   *Version 0.1
-  *Authors Matthew Clark, Ryan Crawford, Mehedi Wahid
+  *Authors Matthew Clark, Ryan Crawford, Mehedi Wahid TESTICLES
 */
 import javax.swing.*;
 import java.awt.*;
