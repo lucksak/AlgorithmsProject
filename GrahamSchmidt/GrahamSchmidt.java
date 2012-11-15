@@ -1,6 +1,8 @@
 /**
   *Version 0.1
   *Authors Matthew Clark, Ryan Crawford, Mehedi Wahid
+
+  *This is for the Algorithms course!
 */
 import javax.swing.*;
 import java.awt.*;
