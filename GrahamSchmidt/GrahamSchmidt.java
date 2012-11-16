@@ -60,4 +60,35 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
   //MouseHandle clicks = new MouseHandle("Words and stuff");
  }
 }
+<<<<<<< HEAD
+
+/*
+ This is some code used to detect mouse clicks, currently detects the clicks but not in  
+ the same window, November 15, Matthew Clark
+ 
+ Mouse detecting
+*/
+class MouseHandle extends JFrame implements MouseListener{
+	int x=5, y=-7;
+	String events ="";
+	
+	MouseHandle(String title){
+		super(title);
+		//addWindowListener(new GrahamSchmidt());
+		addMouseListener(this);
+		setSize(700,500);  
+		setVisible(true);
+	}
+	
+	public void mouseClicked(MouseEvent evt){
+		System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
+	}
+
+	public void mousePressed(MouseEvent evt){};
+	public void mouseReleased(MouseEvent evt){};
+	public void mouseEntered(MouseEvent evt){};
+	public void mouseExited(MouseEvent evt){};
+}
+=======
 //removed mouse handle
+>>>>>>> origin/master
