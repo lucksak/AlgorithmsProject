@@ -60,6 +60,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
   //MouseHandle clicks = new MouseHandle("Words and stuff");
  }
 }
+<<<<<<< HEAD
 
 /*
  This is some code used to detect mouse clicks, currently detects the clicks but not in  
@@ -88,3 +89,6 @@ class MouseHandle extends JFrame implements MouseListener{
 	public void mouseEntered(MouseEvent evt){};
 	public void mouseExited(MouseEvent evt){};
 }
+=======
+//removed mouse handle
+>>>>>>> origin/master
