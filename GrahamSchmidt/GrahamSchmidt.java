@@ -11,10 +11,15 @@ import java.awt.event.WindowEvent;
 
 
 
-public class GrahamSchmidt extends JFrame{
+public class GrahamSchmidt extends JFrame implements MouseListener{
 
+	int x=0, y=0;
+	String events ="";
+	
+	
  public GrahamSchmidt () {
    setContentPane(new Panel());
+   addMouseListener(this);
    setLayout(new GridLayout(100,200));
    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    setSize(700,500);   
@@ -40,11 +45,19 @@ public class GrahamSchmidt extends JFrame{
       temp += 15;
    } 
 	}
+	public void mouseClicked(MouseEvent evt){
+		System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
+	}
+
+	public void mousePressed(MouseEvent evt){};
+	public void mouseReleased(MouseEvent evt){};
+	public void mouseEntered(MouseEvent evt){};
+	public void mouseExited(MouseEvent evt){};
 
 
  public static void main (String args[]) {
   JFrame frame = new GrahamSchmidt();
-  MouseHandle clicks = new MouseHandle("Words and stuff");
+  //MouseHandle clicks = new MouseHandle("Words and stuff");
  }
 }
 
