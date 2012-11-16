@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Vector;
 
 
 
@@ -15,6 +16,8 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
 	int x=0, y=0;
 	String events ="";
+	Vector<Integer> xclicks = new Vector<Integer>();
+	Vector<Integer> yclicks = new Vector<Integer>();
 	
 	
  public GrahamSchmidt () {
@@ -46,7 +49,12 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    } 
 	}
 	public void mouseClicked(MouseEvent evt){
+		
 		System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
+		xclicks.add(evt.getX());
+		yclicks.add(evt.getY());
+		System.out.println(" X Vector size = " + xclicks.size());
+		System.out.println(" Y Vector size = " + yclicks.size());
 	}
 
 	public void mousePressed(MouseEvent evt){};
@@ -57,7 +65,6 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
  public static void main (String args[]) {
   JFrame frame = new GrahamSchmidt();
-  //MouseHandle clicks = new MouseHandle("Words and stuff");
  }
 }
 //removed mouse handle! Again
