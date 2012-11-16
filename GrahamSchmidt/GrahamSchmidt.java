@@ -16,20 +16,26 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 	int x=0, y=0;
 	String events ="";
 	
+   
 	
  public GrahamSchmidt () {
+         
    setContentPane(new Panel());
    addMouseListener(this);
-   setLayout(new GridLayout(100,200));
    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   setSize(700,500);   
+   setSize(700,500);
+    
    setVisible(true);
  }
  
  class Panel extends JPanel {
   @Override
   public void paintComponent(Graphics g) {
-   g.drawRect(0,0,500,500);
+   g.drawRect(501,0,700,500);
+   FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
+   setLayout(layout);
+   JButton Done = new JButton("Done");
+   add(Done); 
   }
  }
 
@@ -57,6 +63,8 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
  public static void main (String args[]) {
   JFrame frame = new GrahamSchmidt();
+
+  
   //MouseHandle clicks = new MouseHandle("Words and stuff");
  }
 }
