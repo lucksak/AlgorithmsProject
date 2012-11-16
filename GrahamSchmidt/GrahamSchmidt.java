@@ -68,7 +68,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
  Mouse detecting
 */
 class MouseHandle extends JFrame implements MouseListener{
-	int x=0, y=0;
+	int x=5, y=-7;
 	String events ="";
 	
 	MouseHandle(String title){
