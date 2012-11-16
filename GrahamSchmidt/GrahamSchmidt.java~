@@ -11,23 +11,28 @@ import java.awt.event.WindowEvent;
 
 
 
-public class GrahamSchmidt extends JFrame{
+public class GrahamSchmidt extends JFrame implements MouseListener{
 
+	int x=0, y=0;
+	String events ="";
+	
+	
  public GrahamSchmidt () {
    setContentPane(new Panel());
+   addMouseListener(this);
    setLayout(new GridLayout(100,200));
    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    setSize(700,500);   
    setVisible(true);
  }
- /*
+ 
  class Panel extends JPanel {
   @Override
   public void paintComponent(Graphics g) {
    g.drawRect(0,0,500,500);
   }
  }
-*/
+
  public void paint(Graphics g){
    int Width = getSize().width;
    int Height = getSize().height;
@@ -40,32 +45,6 @@ public class GrahamSchmidt extends JFrame{
       temp += 15;
    } 
 	}
-
-
- public static void main (String args[]) {
-  JFrame frame = new GrahamSchmidt();
-  MouseHandle clicks = new MouseHandle("Words and stuff");
- }
-}
-
-/*
- This is some code used to detect mouse clicks, currently detects the clicks but not in  
- the same window, November 15, Matthew Clark
- 
- Mouse detecting
-*/
-class MouseHandle extends JFrame implements MouseListener{
-	int x=0, y=0;
-	String events ="";
-	
-	MouseHandle(String title){
-		super(title);
-		//addWindowListener(new GrahamSchmidt());
-		addMouseListener(this);
-		setSize(700,500);  
-		setVisible(true);
-	}
-	
 	public void mouseClicked(MouseEvent evt){
 		System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
 	}
@@ -74,4 +53,11 @@ class MouseHandle extends JFrame implements MouseListener{
 	public void mouseReleased(MouseEvent evt){};
 	public void mouseEntered(MouseEvent evt){};
 	public void mouseExited(MouseEvent evt){};
+
+
+ public static void main (String args[]) {
+  JFrame frame = new GrahamSchmidt();
+  //MouseHandle clicks = new MouseHandle("Words and stuff");
+ }
 }
+//removed mouse handle
