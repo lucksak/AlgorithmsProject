@@ -27,6 +27,7 @@ public class GrahamSchmidt extends JFrame{
    g.drawRect(0,0,500,500);
   }
  }
+
  public void paint(Graphics g){
    int Width = getSize().width;
    int Height = getSize().height;
