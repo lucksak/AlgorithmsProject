@@ -27,21 +27,24 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    addMouseListener(this);
    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    setSize(700,500);
-    
+   FlowLayout layout = new FlowLayout(FlowLayout.CENTER,250,420);
+   setLayout(layout);
+   JButton Done = new JButton("Done");
+   JButton Calculate = new JButton("Calculate");
+   add(Done);  
+   add(Calculate);
    setVisible(true);
  }
  
  class Panel extends JPanel {
   @Override
   public void paintComponent(Graphics g) {
-   g.drawRect(501,100,700,500);
-   FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
-   setLayout(layout);
-   JButton Done = new JButton("Done");
-   add(Done); 
+  g.setColor(Color.WHITE);
+  g.fillRect(0,0,700,400);
+  
   }
  }
-
+/*
  public void paint(Graphics g){
    int Width = getSize().width;
    int Height = getSize().height;
@@ -53,12 +56,15 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
       g.drawLine(0,temp-7,500,temp-7);
       temp += 15;
    } 
-	}
+}
+*/
 	public void mouseClicked(MouseEvent evt){
 		
 		System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
-		xclicks.add(evt.getX());
-		yclicks.add(evt.getY());
+      if(evt.getX() > 0 && evt.getX() <700 && evt.getY() > 0 && evt.getY() <425){
+		      xclicks.add(evt.getX());
+		      yclicks.add(evt.getY());
+     }
 		System.out.println(" X Vector size = " + xclicks.size());
 		System.out.println(" Y Vector size = " + yclicks.size());
 	}
@@ -71,12 +77,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
  public static void main (String args[]) {
   JFrame frame = new GrahamSchmidt();
-<<<<<<< HEAD
-=======
 
-  
-  //MouseHandle clicks = new MouseHandle("Words and stuff");
->>>>>>> origin/master
  }
 }
-//removed mouse handle! Again
+
