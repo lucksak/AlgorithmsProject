@@ -30,7 +30,6 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    FlowLayout layout = new FlowLayout(FlowLayout.CENTER,250,420);
    setLayout(layout);
    JButton Done = new JButton("Done");
-   //Done.setPreferredSize(new Dimension(20, 50));
    JButton Calculate = new JButton("Calculate");
    add(Done);  
    add(Calculate);

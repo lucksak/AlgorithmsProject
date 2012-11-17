@@ -27,7 +27,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    addMouseListener(this);
    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    setSize(700,500);
-   FlowLayout layout = new FlowLayout(FlowLayout.CENTER,250,420);
+   FlowLayout layout = new FlowLayout(FlowLayout.CENTER,200,420);
    setLayout(layout);
    JButton Done = new JButton("Done");
    JButton Calculate = new JButton("Calculate");
