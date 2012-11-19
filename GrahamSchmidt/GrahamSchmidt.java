@@ -9,6 +9,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 
@@ -18,7 +21,8 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 	String events ="";
 	Vector<Integer> xclicks = new Vector<Integer>();
 	Vector<Integer> yclicks = new Vector<Integer>();
-	
+	public JButton done;
+	public JButton calculate;
    
 	
  public GrahamSchmidt () {
@@ -29,21 +33,22 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    setSize(700,500);
    FlowLayout layout = new FlowLayout(FlowLayout.CENTER,200,420);
    setLayout(layout);
-   JButton Done = new JButton("Done");
-   JButton Calculate = new JButton("Calculate");
-   add(Done);  
-   add(Calculate);
+   done = new JButton("Done");
+   calculate = new JButton("Calculate");
+   add(done);  
+   add(calculate);
    setVisible(true);
  }
  
  class Panel extends JPanel {
   @Override
   public void paintComponent(Graphics g) {
-  g.setColor(Color.WHITE);
-  g.fillRect(0,0,700,400);
+  	g.setColor(Color.WHITE);
+  	g.fillRect(0,0,700,400);
+  	}
   
   }
- }
+
 /*
  public void paint(Graphics g){
    int Width = getSize().width;
@@ -64,9 +69,9 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
       if(evt.getX() > 0 && evt.getX() <700 && evt.getY() > 0 && evt.getY() <425){
 		      xclicks.add(evt.getX());
 		      yclicks.add(evt.getY());
+		      System.out.println(" X Vector size = " + xclicks.size());
+					System.out.println(" Y Vector size = " + yclicks.size());
      }
-		System.out.println(" X Vector size = " + xclicks.size());
-		System.out.println(" Y Vector size = " + yclicks.size());
 	}
 
 	public void mousePressed(MouseEvent evt){};
@@ -76,8 +81,26 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
 
  public static void main (String args[]) {
-  JFrame frame = new GrahamSchmidt();
+  GrahamSchmidt frame = new GrahamSchmidt();
+  Actions action = new Actions(frame);
+  
 
  }
 }
-
+class Actions implements ActionListener {
+  	GrahamSchmidt frame;
+  	public Actions(GrahamSchmidt frame) {
+  		this.frame = frame;
+  		this.frame.done.addActionListener(this);
+			this.frame.calculate.addActionListener(this);
+  	}
+  	@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == frame.done) {
+  			System.out.println("DONE PUSH");
+  		}
+  		if(e.getSource() == frame.calculate) {
+  			System.out.println("CALCULATE PUSH");
+  		}
+  	}
+  }
