@@ -21,7 +21,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 	String events ="";
 	public Vector<Integer> xclicks = new Vector<Integer>();
 	public Vector<Integer> yclicks = new Vector<Integer>();
-	public JButton done;
+	
 	public JButton calculate;
    
 	
@@ -33,9 +33,9 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    setSize(700,500);
    FlowLayout layout = new FlowLayout(FlowLayout.CENTER,200,420);
    setLayout(layout);
-   done = new JButton("Done");
+  
    calculate = new JButton("Calculate");
-   add(done);  
+   
    add(calculate);
    setVisible(true);
  }
@@ -49,7 +49,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    if(yclicks.size() > 0){
       for(int i = 0; i < yclicks.size(); i++){
             g.setColor(Color.RED);
-  			   g.fillRect(xclicks.get(i)-3,yclicks.get(i)-3,7,7);    
+  			   g.fillRect(xclicks.get(i)-7,yclicks.get(i)-30,7,7);    
          }
         
      }
@@ -78,7 +78,8 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 		      xclicks.add(evt.getX());
 		      yclicks.add(evt.getY());
 		      System.out.println(" X Vector size = " + xclicks.size());
-					System.out.println(" Y Vector size = " + yclicks.size());
+				System.out.println(" Y Vector size = " + yclicks.size());
+            repaint();
      }
 	}
 
@@ -90,6 +91,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
  public static void main (String args[]) {
   GrahamSchmidt frame = new GrahamSchmidt();
+   
   Actions action = new Actions(frame);
   
 
@@ -98,16 +100,12 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 class Actions implements ActionListener {
   	GrahamSchmidt frame;
   	public Actions(GrahamSchmidt frame) {
-  		this.frame = frame;
-  		this.frame.done.addActionListener(this);
-			this.frame.calculate.addActionListener(this);
+  		this.frame = frame;  		
+		this.frame.calculate.addActionListener(this);
   	}
   	@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == frame.done) {
-         frame.repaint();
-         frame.done.setEnabled(false);
-  		}
+		
   		if(e.getSource() == frame.calculate) {
   			System.out.println("CALCULATE PUSH");
   		}
