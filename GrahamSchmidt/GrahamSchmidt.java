@@ -19,8 +19,8 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
 	int x=0, y=0;
 	String events ="";
-	Vector<Integer> xclicks = new Vector<Integer>();
-	Vector<Integer> yclicks = new Vector<Integer>();
+	public Vector<Integer> xclicks = new Vector<Integer>();
+	public Vector<Integer> yclicks = new Vector<Integer>();
 	public JButton done;
 	public JButton calculate;
    
@@ -45,6 +45,14 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
   public void paintComponent(Graphics g) {
   	g.setColor(Color.WHITE);
   	g.fillRect(0,0,700,400);
+   
+   if(yclicks.size() > 0){
+      for(int i = 0; i < yclicks.size(); i++){
+            g.setColor(Color.RED);
+  			   g.fillRect(xclicks.get(i)-3,yclicks.get(i)-3,7,7);    
+         }
+        
+     }
   	}
   
   }
@@ -97,7 +105,8 @@ class Actions implements ActionListener {
   	@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == frame.done) {
-  			System.out.println("DONE PUSH");
+         frame.repaint();
+         frame.done.setEnabled(false);
   		}
   		if(e.getSource() == frame.calculate) {
   			System.out.println("CALCULATE PUSH");
