@@ -152,8 +152,9 @@ class Actions implements ActionListener {
 					cross[2] = frame.clicks.get(2);
 					double a1 = angleFind(cross[0], cross[1]);
 					//double theta = Math.asin(crossProd(cross[0], cross[1])/((Math.sqrt(
-					
+					double a2 = polarAngle(cross[0], cross[1]);
 					System.out.println(" Angle of point 0 and 1 = " + a1);
+					System.out.println(" Polar Angle of point 0 and 1 = " + Math.toDegrees(a2));
 					
   		}
   }
@@ -162,6 +163,32 @@ class Actions implements ActionListener {
   	double prod = (A.getX()*B.getY()) - (A.getY()*B.getX());
 		double theta = Math.asin((prod)/(Math.sqrt((A.getX()*A.getX())+
 			(A.getY()*A.getY()))*Math.sqrt((B.getX()*B.getX())+(B.getY()*B.getY()))));
+  	return theta;
+  }
+  /*Polar angle as defined in text on page 1020*/
+  public double polarAngle(Point A, Point B){
+  	Point polVect = new Point();
+  	double theta = 0.0;
+  	polVect.setLocation(A.getX()-B.getX(),A.getY()-B.getY());
+  	//+x +y
+  	if(polVect.getX() >= 0 && polVect.getY() >= 0){
+  		theta = Math.atan(polVect.getY()/polVect.getX());
+  	}
+  	//-x +y
+  	if(polVect.getX() < 0 && polVect.getY() >= 0){
+  		theta = Math.atan((-1*polVect.getX())/polVect.getY()) + (Math.PI/2);
+  	}
+  	//-x -y
+  	if(polVect.getX() < 0 && polVect.getY() < 0){
+  		theta = Math.atan(((-1*polVect.getY())/(-1*polVect.getX()))) + Math.PI;
+  	}
+  	//+x, -y
+  	if(polVect.getX() >= 0 && polVect.getY() < 0){
+  		theta = Math.atan(polVect.getX()/(-1*polVect.getY())) + ((3*Math.PI)/2);
+  	}
+  	
+  	System.out.println(" polVect = " + polVect.getX() + " , " + polVect.getY());
+  	
   	return theta;
   }
 	public void swapPoints(int A, int B){
