@@ -19,8 +19,10 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
 	int x=0, y=0;
 	String events ="";
-	public Vector<Integer> xclicks = new Vector<Integer>();
-	public Vector<Integer> yclicks = new Vector<Integer>();
+	//public Vector<Integer> xclicks = new Vector<Integer>();
+	//public Vector<Integer> yclicks = new Vector<Integer>();
+	
+	public Vector<Point> clicks = new Vector<Point>();//A vector of Point
 	
 	public JButton calculate;
    
@@ -46,10 +48,10 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
   	g.setColor(Color.WHITE);
   	g.fillRect(0,0,700,400);
    
-   if(yclicks.size() > 0){
-      for(int i = 0; i < yclicks.size(); i++){
+   if(clicks.size() > 0){
+      for(int i = 0; i < clicks.size(); i++){
             g.setColor(Color.RED);
-  			   g.fillRect(xclicks.get(i)-7,yclicks.get(i)-30,7,7);    
+  			   g.fillRect((int)(clicks.get(i).getX())-7,(int)(clicks.get(i).getY())-30,7,7);    
          }
         
      }
@@ -71,14 +73,23 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    } 
 }
 */
+
+	/* When clicking on the white rectangle a red dot will appear */
 	public void mouseClicked(MouseEvent evt){
-		
+		Point temp = new Point();
 		System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
       if(evt.getX() > 0 && evt.getX() <700 && evt.getY() > 0 && evt.getY() <425){
-		      xclicks.add(evt.getX());
-		      yclicks.add(evt.getY());
-		      System.out.println(" X Vector size = " + xclicks.size());
-				System.out.println(" Y Vector size = " + yclicks.size());
+		      //xclicks.add(evt.getX());
+		      //yclicks.add(evt.getY());
+		      
+		      temp.setLocation(evt.getX(), evt.getY());
+		      clicks.add(temp);
+		      System.out.println(" Points = " + clicks.size());
+		      System.out.println(" Points x = " + clicks.get(clicks.size()-1).getX());
+		      System.out.println(" Points y = " + clicks.get(clicks.size()-1).getY());
+		      
+		      //System.out.println(" X Vector size = " + xclicks.size());
+					//System.out.println(" Y Vector size = " + yclicks.size());
             repaint();
      }
 	}
@@ -108,6 +119,7 @@ class Actions implements ActionListener {
 		
   		if(e.getSource() == frame.calculate) {
   			System.out.println("CALCULATE PUSH");
+  				//If the calculate button is pushed
   		}
   	}
   }
