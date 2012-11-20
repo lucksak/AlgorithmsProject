@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Stack;
+import java.util.ArrayList;
 import java.lang.Math;
 
 
@@ -25,6 +26,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 	//public Vector<Integer> yclicks = new Vector<Integer>();
 	
 	public Vector<Point> clicks = new Vector<Point>();//A vector of Point
+	public Vector<Point> hull = new Vector<Point>();
 	
 	public JButton calculate;
 	public boolean flag = false;
@@ -48,18 +50,24 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
  class Panel extends JPanel {
   @Override
   public void paintComponent(Graphics g) {
+  
   	g.setColor(Color.WHITE);
   	g.fillRect(0,0,700,400);
    
-   if(clicks.size() > 0 && flag == false){
+   if(clicks.size() > 0){
       for(int i = 0; i < clicks.size(); i++){
-            g.setColor(Color.RED);
+           	g.setColor(Color.RED);
   			   g.fillRect((int)(clicks.get(i).getX())-7,(int)(clicks.get(i).getY())-30,7,7);    
          }
         
+     
      }
      if(flag == true){
-     	//drawlines
+     	g.setColor(Color.BLUE);
+     for(int i = 0; i < hull.size()-1; i++){
+    	g.drawLine((int)(hull.get(i).getX())-7,(int)(hull.get(i).getY())-30,(int)(clicks.get(i+1).getX()-7),(int)(clicks.get(i+1).getY()-30));
+     	}
+     	g.drawLine((int)(hull.get(hull.size()-1).getX()-7),(int)(hull.get(hull.size()-1).getY()-30),(int)(clicks.get(0).getX()-7),(int)(clicks.get(0).getY()-30));
      }
   	}
   
@@ -146,16 +154,28 @@ class Actions implements ActionListener {
   					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
   				 }
   				System.out.println("minY = " + minY);
-					Point[] cross = new Point[frame.clicks.size()];
-					cross[0] = frame.clicks.get(0);
-					cross[1] = frame.clicks.get(1);
-					cross[2] = frame.clicks.get(2);
-					double a1 = angleFind(cross[0], cross[1]);
-					//double theta = Math.asin(crossProd(cross[0], cross[1])/((Math.sqrt(
-					double a2 = polarAngle(cross[0], cross[1]);
-					System.out.println(" Angle of point 0 and 1 = " + a1);
-					System.out.println(" Polar Angle of point 0 and 1 = " + Math.toDegrees(a2));
 					
+					sort();// Sorts by polar angle
+					
+					//This is where we fix the convex hull problem!
+					for(int i =0; i < frame.clicks.size(); i++){
+  					 Point min = frame.clicks.get(i);
+  					 double low = polarAngle(min, frame.clicks.get(i));
+  					 for(int j =0; j < frame.clicks.size(); j++){
+  					 		if(low >= Math.PI && low <= 2*Math.PI) {
+  					 			if((polarAngle(min, frame.clicks.get(j)) < low)){
+  					 				low = polarAngle(min, frame.clicks.get(j));
+  					 				min = frame.clicks.get(j);
+  					 			}
+  					 		}
+  					 }
+  					 frame.hull.add(min);
+  				 }
+  				 
+  				 for(int i =0; i < frame.hull.size(); i++){
+  					 System.out.println("  Hull Points = " + frame.hull.get(i).getX() + " , " + frame.hull.get(i).getY());
+  				 }
+  				 frame.repaint();
   		}
   }
   /*Returns the cross product of two points in R2*/
@@ -185,15 +205,29 @@ class Actions implements ActionListener {
   	//+x, -y
   	if(polVect.getX() >= 0 && polVect.getY() < 0){
   		theta = Math.atan(polVect.getX()/(-1*polVect.getY())) + ((3*Math.PI)/2);
-  	}
-  	
-  	System.out.println(" polVect = " + polVect.getX() + " , " + polVect.getY());
-  	
+  	}  	
   	return theta;
   }
+  /* Swaps points */
 	public void swapPoints(int A, int B){
 		Point tempB = frame.clicks.get(B);
 		frame.clicks.setElementAt(frame.clicks.get(A), B);
 		frame.clicks.setElementAt(tempB, A);
+	}
+	
+	/*Super awesome bubble sort!  Sort by polarAngle*/
+	public void sort(){
+		int position, scan;
+			for(position = (frame.clicks.size()); position > 0; position--)
+			{
+				for(scan = 0; scan < (position - 1); scan++)
+				{
+					if(polarAngle(frame.clicks.get(0), frame.clicks.get(scan)) > polarAngle(frame.clicks.get(0), frame.clicks.get(scan+1)))
+						{
+							swapPoints(scan, scan+1);
+						}
+				}
+			}
+			return;
 	}
  }
