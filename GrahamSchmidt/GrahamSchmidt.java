@@ -90,21 +90,23 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
 	/* When clicking on the white rectangle a red dot will appear */
 	public void mouseClicked(MouseEvent evt){
-		Point temp = new Point();
-		System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
-      if(evt.getX() > 0 && evt.getX() <700 && evt.getY() > 0 && evt.getY() <425){
-		      //xclicks.add(evt.getX());
-		      //yclicks.add(evt.getY());
-		      
-		      temp.setLocation(evt.getX(), evt.getY());
-		      clicks.add(temp);
-		      System.out.println(" Points = " + clicks.size());
-		      System.out.println(" Points x = " + clicks.get(clicks.size()-1).getX());
-		      System.out.println(" Points y = " + clicks.get(clicks.size()-1).getY());
-		      
-		      //System.out.println(" X Vector size = " + xclicks.size());
-					//System.out.println(" Y Vector size = " + yclicks.size());
-            repaint();
+		if(flag == false){
+			Point temp = new Point();
+			System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
+		    if(evt.getX() > 0 && evt.getX() <700 && evt.getY() > 0 && evt.getY() <425){
+				    //xclicks.add(evt.getX());
+				    //yclicks.add(evt.getY());
+				    
+				    temp.setLocation(evt.getX(), evt.getY());
+				    clicks.add(temp);
+				    System.out.println(" Points = " + clicks.size());
+				    System.out.println(" Points x = " + clicks.get(clicks.size()-1).getX());
+				    System.out.println(" Points y = " + clicks.get(clicks.size()-1).getY());
+				    
+				    //System.out.println(" X Vector size = " + xclicks.size());
+						//System.out.println(" Y Vector size = " + yclicks.size());
+		          repaint();
+            }
      }
 	}
 
@@ -176,6 +178,7 @@ class Actions implements ActionListener {
   					 System.out.println("  Hull Points = " + frame.hull.get(i).getX() + " , " + frame.hull.get(i).getY());
   				 }
   				 frame.repaint();
+  				 frame.calculate.setEnabled(false);
   		}
   }
   /*Returns the cross product of two points in R2*/
