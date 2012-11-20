@@ -38,6 +38,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    addMouseListener(this);
    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    setSize(700,500);
+   setResizable(false);
    FlowLayout layout = new FlowLayout(FlowLayout.CENTER,200,420);
    setLayout(layout);
   
@@ -57,7 +58,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
    if(clicks.size() > 0){
       for(int i = 0; i < clicks.size(); i++){
            	g.setColor(Color.RED);
-  			   g.fillRect((int)(clicks.get(i).getX())-7,(int)(clicks.get(i).getY())-30,7,7);    
+  			   g.fillOval((int)(clicks.get(i).getX())-7,(int)(clicks.get(i).getY())-30,8,8);    
          }
         
      
@@ -65,9 +66,9 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
      if(flag == true){
      	g.setColor(Color.BLUE);
      for(int i = 0; i < hull.size()-1; i++){
-    	g.drawLine((int)(hull.get(i).getX())-7,(int)(hull.get(i).getY())-30,(int)(clicks.get(i+1).getX()-7),(int)(clicks.get(i+1).getY()-30));
+    	g.drawLine((int)(hull.get(i).getX())-3,(int)(hull.get(i).getY())-26,(int)(clicks.get(i+1).getX()-3),(int)(clicks.get(i+1).getY()-26));
      	}
-     	g.drawLine((int)(hull.get(hull.size()-1).getX()-7),(int)(hull.get(hull.size()-1).getY()-30),(int)(clicks.get(0).getX()-7),(int)(clicks.get(0).getY()-30));
+     	g.drawLine((int)(hull.get(hull.size()-1).getX()-3),(int)(hull.get(hull.size()-1).getY()-26),(int)(clicks.get(0).getX()-3),(int)(clicks.get(0).getY()-26));
      }
   	}
   
