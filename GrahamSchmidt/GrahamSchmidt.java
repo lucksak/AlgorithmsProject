@@ -12,7 +12,7 @@ import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
+import java.util.Collections;
 
 
 public class GrahamSchmidt extends JFrame implements MouseListener{
@@ -116,10 +116,20 @@ class Actions implements ActionListener {
   	}
   	@Override
 		public void actionPerformed(ActionEvent e) {
-		
+			
   		if(e.getSource() == frame.calculate) {
+  			double minY = frame.clicks.get(0).getY();
+  			Point minPoint = frame.clicks.get(0);
   			System.out.println("CALCULATE PUSH");
   				//If the calculate button is pushed
+  				for(int i =0; i < frame.clicks.size(); i++){
+  					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
+  					 if(frame.clicks.get(i).getY() < minY){
+  					 	minY = frame.clicks.get(i).getY();
+  					 	minPoint = frame.clicks.get(i);
+  					 }
+  				}	
+  				System.out.println("minY = " + minY);
   		}
-  	}
   }
+ }
