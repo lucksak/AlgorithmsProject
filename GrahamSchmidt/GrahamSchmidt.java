@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Stack;
 
 
 public class GrahamSchmidt extends JFrame implements MouseListener{
@@ -119,16 +120,25 @@ class Actions implements ActionListener {
 			
   		if(e.getSource() == frame.calculate) {
   			double minY = frame.clicks.get(0).getY();
+  			int loc = 0;
   			Point minPoint = frame.clicks.get(0);
   			System.out.println("CALCULATE PUSH");
   				//If the calculate button is pushed
   				for(int i =0; i < frame.clicks.size(); i++){
   					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
   					 if(frame.clicks.get(i).getY() < minY){
+  					 	loc = i;
   					 	minY = frame.clicks.get(i).getY();
   					 	minPoint = frame.clicks.get(i);
   					 }
   				}	
+  				Point zero = frame.clicks.get(0);
+  				frame.clicks.setElementAt(zero, loc);
+  				frame.clicks.setElementAt(minPoint, 0);
+  				System.out.println(" Switched zero with " + loc);
+  				for(int i =0; i < frame.clicks.size(); i++){
+  					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
+  				 }
   				System.out.println("minY = " + minY);
   		}
   }
