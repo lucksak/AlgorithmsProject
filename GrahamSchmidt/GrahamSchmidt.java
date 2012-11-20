@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Stack;
+import java.lang.Math;
 
 
 public class GrahamSchmidt extends JFrame implements MouseListener{
@@ -26,6 +27,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 	public Vector<Point> clicks = new Vector<Point>();//A vector of Point
 	
 	public JButton calculate;
+	public boolean flag = false;
    
 	
  public GrahamSchmidt () {
@@ -49,12 +51,15 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
   	g.setColor(Color.WHITE);
   	g.fillRect(0,0,700,400);
    
-   if(clicks.size() > 0){
+   if(clicks.size() > 0 && flag == false){
       for(int i = 0; i < clicks.size(); i++){
             g.setColor(Color.RED);
   			   g.fillRect((int)(clicks.get(i).getX())-7,(int)(clicks.get(i).getY())-30,7,7);    
          }
         
+     }
+     if(flag == true){
+     	//drawlines
      }
   	}
   
@@ -119,6 +124,7 @@ class Actions implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
   		if(e.getSource() == frame.calculate) {
+  			frame.flag = true;
   			double minY = frame.clicks.get(0).getY();
   			int loc = 0;
   			Point minPoint = frame.clicks.get(0);
@@ -131,15 +137,24 @@ class Actions implements ActionListener {
   					 	minY = frame.clicks.get(i).getY();
   					 	minPoint = frame.clicks.get(i);
   					 }
-  				}	
-  				Point zero = frame.clicks.get(0);
+  				}
+  					
+  				/*Point zero = frame.clicks.get(0);
   				frame.clicks.setElementAt(zero, loc);
-  				frame.clicks.setElementAt(minPoint, 0);
+  				frame.clicks.setElementAt(minPoint, 0);*/
+  				swapPoints(0, loc);
   				System.out.println(" Switched zero with " + loc);
   				for(int i =0; i < frame.clicks.size(); i++){
   					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
   				 }
   				System.out.println("minY = " + minY);
+
   		}
   }
+	public void swapPoints(int A, int B){
+		Point tempA = frame.clicks.get(A);
+		Point tempB = frame.clicks.get(B);
+		frame.clicks.setElementAt(tempA, B);
+		frame.clicks.setElementAt(tempB, A);
+	}
  }
