@@ -138,23 +138,35 @@ class Actions implements ActionListener {
   					 	minPoint = frame.clicks.get(i);
   					 }
   				}
-  					
-  				/*Point zero = frame.clicks.get(0);
-  				frame.clicks.setElementAt(zero, loc);
-  				frame.clicks.setElementAt(minPoint, 0);*/
+  				/*Switches minimum Point with point 0*/
   				swapPoints(0, loc);
   				System.out.println(" Switched zero with " + loc);
+  				
   				for(int i =0; i < frame.clicks.size(); i++){
   					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
   				 }
   				System.out.println("minY = " + minY);
-
+					Point[] cross = new Point[frame.clicks.size()];
+					cross[0] = frame.clicks.get(0);
+					cross[1] = frame.clicks.get(1);
+					cross[2] = frame.clicks.get(2);
+					double a1 = angleFind(cross[0], cross[1]);
+					//double theta = Math.asin(crossProd(cross[0], cross[1])/((Math.sqrt(
+					
+					System.out.println(" Angle of point 0 and 1 = " + a1);
+					
   		}
   }
+  /*Returns the cross product of two points in R2*/
+  public double angleFind(Point A, Point B){
+  	double prod = (A.getX()*B.getY()) - (A.getY()*B.getX());
+		double theta = Math.asin((prod)/(Math.sqrt((A.getX()*A.getX())+
+			(A.getY()*A.getY()))*Math.sqrt((B.getX()*B.getX())+(B.getY()*B.getY()))));
+  	return theta;
+  }
 	public void swapPoints(int A, int B){
-		Point tempA = frame.clicks.get(A);
 		Point tempB = frame.clicks.get(B);
-		frame.clicks.setElementAt(tempA, B);
+		frame.clicks.setElementAt(frame.clicks.get(A), B);
 		frame.clicks.setElementAt(tempB, A);
 	}
  }
