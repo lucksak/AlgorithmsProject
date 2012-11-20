@@ -90,8 +90,10 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 */
 
 	/* When clicking on the white rectangle a red dot will appear */
-	public void mouseClicked(MouseEvent evt){
-		if(flag == false){
+	public void mouseClicked(MouseEvent evt){};
+
+	public void mousePressed(MouseEvent evt){
+        if(flag == false){
 			Point temp = new Point();
 			System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
 		    if(evt.getX() > 0 && evt.getX() <700 && evt.getY() > 0 && evt.getY() <425){
@@ -109,9 +111,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 		          repaint();
             }
      }
-	}
-
-	public void mousePressed(MouseEvent evt){};
+}
 	public void mouseReleased(MouseEvent evt){};
 	public void mouseEntered(MouseEvent evt){};
 	public void mouseExited(MouseEvent evt){};
