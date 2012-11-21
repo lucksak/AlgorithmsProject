@@ -27,6 +27,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 	
 	public Vector<Point> clicks = new Vector<Point>();//A vector of Point
 	public Vector<Point> hull = new Vector<Point>();
+	public Stack<Point> S = new Stack<Point>();
 	
 	public JButton calculate;
 	public boolean flag = false;
@@ -69,6 +70,18 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
     	g.drawLine((int)(hull.get(i).getX())-3,(int)(hull.get(i).getY())-26,(int)(clicks.get(i+1).getX()-3),(int)(clicks.get(i+1).getY()-26));
      	}
      	g.drawLine((int)(hull.get(hull.size()-1).getX()-3),(int)(hull.get(hull.size()-1).getY()-26),(int)(clicks.get(0).getX()-3),(int)(clicks.get(0).getY()-26));
+     
+     g.setColor(Color.GREEN);
+     Point First = S.pop();
+     Point Second =  S.pop();
+     	
+     while(S.empty() == false){
+     	g.drawLine((int)(First.getX())-3,(int)(First.getY())-26,(int)(Second.getX()-3),(int)(Second.getY()-26));
+     	First = Second;
+     	Second = S.pop();
+     }
+     g.drawLine((int)(First.getX())-3,(int)(First.getY())-26,(int)(Second.getX()-3),(int)(Second.getY()-26));
+     
      }
   	}
   
@@ -158,22 +171,63 @@ class Actions implements ActionListener {
   				 }
   				System.out.println("minY = " + minY);
 					
-					sort();// Sorts by polar angle
+					sort();
+					System.out.println("Sorted");
+					// Sorts by polar angle
 					
 					//This is where we fix the convex hull problem!
+					
+				
+					System.out.println("---------------------------------------------------------");
 					for(int i =0; i < frame.clicks.size(); i++){
+  					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
+  					 }
+  				System.out.println("---------------------------------------------------------");
+					
+				//	int N = frame.clicks.size();
+								
+					
+					frame.S.push(frame.clicks.get(0));
+					frame.S.push(frame.clicks.get(1));
+					frame.S.push(frame.clicks.get(2));
+					
+					Point firstIsAlsoLast = frame.clicks.get(0);
+					frame.clicks.add(firstIsAlsoLast);
+					
+					Point top;
+					Point nextToTop;
+					int m=3;
+					
+					for(int i =3; i < frame.clicks.size(); i++){
+					
+						 top = frame.S.pop();
+						 nextToTop = frame.S.pop();
+						 frame.S.push(nextToTop);
+						 frame.S.push(top);
+						 
   					 Point min = frame.clicks.get(i);
   					 double low = polarAngle(min, frame.clicks.get(i));
+  					 
   					 for(int j =0; j < frame.clicks.size(); j++){
-  					 		if(low >= Math.PI && low <= 2*Math.PI) {
-  					 			if((polarAngle(min, frame.clicks.get(j)) < low)){
+  					 		if(ccw(nextToTop, top, frame.clicks.get(i)) >= 0) {
+  					 			if(frame.S.size() > 3){
+  					 				frame.S.pop();
+  					 				}
+  					 			if((polarAngle(min, frame.clicks.get(j)) > low)){
   					 				low = polarAngle(min, frame.clicks.get(j));
   					 				min = frame.clicks.get(j);
+  					 				
+  					 				
   					 			}
   					 		}
+  					 		m++;
   					 }
+  					 frame.S.push(frame.clicks.get(i));
+						 System.out.println("Pushed = " + frame.clicks.get(i));
+						 
   					 frame.hull.add(min);
   				 }
+  				 System.out.println("Stack = " + frame.S.toString());
   				 
   				 for(int i =0; i < frame.hull.size(); i++){
   					 System.out.println("  Hull Points = " + frame.hull.get(i).getX() + " , " + frame.hull.get(i).getY());
@@ -226,7 +280,7 @@ class Actions implements ActionListener {
 			{
 				for(scan = 0; scan < (position - 1); scan++)
 				{
-					if(polarAngle(frame.clicks.get(0), frame.clicks.get(scan)) > polarAngle(frame.clicks.get(0), frame.clicks.get(scan+1)))
+					if(polarAngle(frame.clicks.get(0), frame.clicks.get(scan)) < polarAngle(frame.clicks.get(0), frame.clicks.get(scan+1)))
 						{
 							swapPoints(scan, scan+1);
 						}
@@ -234,4 +288,15 @@ class Actions implements ActionListener {
 			}
 			return;
 	}
+	
+	
+	/*
+	# Three points are a counter-clockwise turn if ccw > 0, clockwise if
+# ccw < 0, and collinear if ccw = 0 because ccw is a determinant that
+# gives the signed area of the triangle formed by p1, p2 and p3.
+function ccw(p1, p2, p3):
+    return (p2.x - p1.x)*(p3.y - p1.y) - (p2.y - p1.y)*(p3.x - p1.x)*/
+    public double ccw(Point p1, Point p2, Point p3){
+    	return ((p2.getX() - p1.getX())*(p3.getY() - p1.getY()) - (p2.getY() - p1.getY())*(p3.getX() - p1.getX()));
+    }
  }
