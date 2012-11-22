@@ -209,7 +209,7 @@ class Actions implements ActionListener {
   					 double low = polarAngle(min, frame.clicks.get(i));
   					 
   					 for(int j =0; j < frame.clicks.size(); j++){
-  					 		if(ccw(nextToTop, top, frame.clicks.get(i)) >= 0) {
+  					 		if(ccw(nextToTop, top, frame.clicks.get(i))>= 0) {
   					 			if(frame.S.size() > 3){
   					 				frame.S.pop();
   					 				}
@@ -221,6 +221,7 @@ class Actions implements ActionListener {
   					 			}
   					 		}
   					 		m++;
+  					 		//swapPoints(m,j);
   					 }
   					 frame.S.push(frame.clicks.get(i));
 						 System.out.println("Pushed = " + frame.clicks.get(i));
