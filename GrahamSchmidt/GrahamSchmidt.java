@@ -65,12 +65,13 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
      
      }
      if(flag == true){
+/*
      	g.setColor(Color.BLUE);
      for(int i = 0; i < hull.size()-1; i++){
     	g.drawLine((int)(hull.get(i).getX())-3,(int)(hull.get(i).getY())-26,(int)(clicks.get(i+1).getX()-3),(int)(clicks.get(i+1).getY()-26));
      	}
      	g.drawLine((int)(hull.get(hull.size()-1).getX()-3),(int)(hull.get(hull.size()-1).getY()-26),(int)(clicks.get(0).getX()-3),(int)(clicks.get(0).getY()-26));
-     
+   */  
      g.setColor(Color.GREEN);
      Point First = S.pop();
      Point Second =  S.pop();
@@ -218,7 +219,11 @@ class Actions implements ActionListener {
   					 				min = frame.clicks.get(j);
   					 				
   					 				
-  					 			}
+  					 			}else{
+                        Point temp = frame.S.pop();
+                        frame.S.pop();
+                        frame.S.push(temp);
+                     }
   					 		}
   					 		m++;
   					 		//swapPoints(m,j);
@@ -252,18 +257,22 @@ class Actions implements ActionListener {
   	//+x +y
   	if(polVect.getX() >= 0 && polVect.getY() >= 0){
   		theta = Math.atan(polVect.getY()/polVect.getX());
+     // System.out.println("1");
   	}
   	//-x +y
   	if(polVect.getX() < 0 && polVect.getY() >= 0){
   		theta = Math.atan((-1*polVect.getX())/polVect.getY()) + (Math.PI/2);
+   // System.out.println("2");
   	}
   	//-x -y
   	if(polVect.getX() < 0 && polVect.getY() < 0){
   		theta = Math.atan(((-1*polVect.getY())/(-1*polVect.getX()))) + Math.PI;
+    //System.out.println("3");
   	}
   	//+x, -y
   	if(polVect.getX() >= 0 && polVect.getY() < 0){
   		theta = Math.atan(polVect.getX()/(-1*polVect.getY())) + ((3*Math.PI)/2);
+ //System.out.println("4");
   	}  	
   	return theta;
   }
