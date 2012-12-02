@@ -165,12 +165,6 @@ class weightedAverage{
       
    public double Average(Point p1, Point p2){
       double average = p2.getX() - p1.getX();
-      if(average > 0){
-         return average;
-      }
-      else{
-         return average * -1;
-      }
-   } 
+} 
 }
 
