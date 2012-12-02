@@ -71,60 +71,24 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
     	g.drawLine((int)(hull.get(y).getX())-3,(int)(hull.get(y).getY())-26,(int)(hull.get(y+1).getX()-3),(int)(hull.get(y+1).getY()-26));
      	}
      	g.drawLine((int)(hull.get(hull.size()-1).getX()-3),(int)(hull.get(hull.size()-1).getY()-26),(int)(hull.get(0).getX()-3),(int)(hull.get(0).getY()-26));
-     
-/*     g.setColor(Color.GREEN);
-     Point First = S.pop();
-     Point Second =  S.pop();
-     	
-     while(S.empty() == false){
-     	g.drawLine((int)(First.getX())-3,(int)(First.getY())-26,(int)(Second.getX()-3),(int)(Second.getY()-26));
-     	First = Second;
-     	Second = S.pop();
-     }
-     g.drawLine((int)(First.getX())-3,(int)(First.getY())-26,(int)(Second.getX()-3),(int)(Second.getY()-26));
-     */
+
      }
   	}
   
   }
 
-/*
- public void paint(Graphics g){
-   int Width = getSize().width;
-   int Height = getSize().height;
-   int temp = 0;
-
-   while(temp < 500){
-      
-      g.drawLine(temp+5,0,temp+5,500);
-      g.drawLine(0,temp-7,500,temp-7);
-      temp += 15;
-   } 
-}
-*/
-
 	/* When clicking on the white rectangle a red dot will appear */
 	public void mouseClicked(MouseEvent evt){};
 
 	public void mousePressed(MouseEvent evt){
-        if(flag == false){
-			Point temp = new Point();
-			System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
-		    if(evt.getX() > 0 && evt.getX() <700 && evt.getY() > 0 && evt.getY() <425){
-				    //xclicks.add(evt.getX());
-				    //yclicks.add(evt.getY());
-				    
-				    temp.setLocation(evt.getX(), evt.getY());
-				    clicks.add(temp);
-				    System.out.println(" Points = " + clicks.size());
-				    System.out.println(" Points x = " + clicks.get(clicks.size()-1).getX());
-				    System.out.println(" Points y = " + clicks.get(clicks.size()-1).getY());
-				    
-				    //System.out.println(" X Vector size = " + xclicks.size());
-						//System.out.println(" Y Vector size = " + yclicks.size());
-		          repaint();
-            }
-     }
+    if(flag == false){
+		Point temp = new Point();
+  	  if(evt.getX() > 0 && evt.getX() <700 && evt.getY() > 0 && evt.getY() <425){ 
+  		    temp.setLocation(evt.getX(), evt.getY());
+  		    clicks.add(temp);
+  		    repaint();
+        }
+    }
 }
 	public void mouseReleased(MouseEvent evt){};
 	public void mouseEntered(MouseEvent evt){};
@@ -151,79 +115,14 @@ class Actions implements ActionListener {
   		if(e.getSource() == frame.calculate) {
   			frame.flag = true;
         Point minXPoint = minX(frame.clicks);
-        System.out.println("Min X Point = " + minXPoint.getX() + "," +minXPoint.getY());
-
 				sort();
 				System.out.println("Sorted");
 				// Sorts by polar angle
 				//This is where we fix the convex hull problem!
 					
-				
-					System.out.println("---------------------------------------------------------");
-					for(int i =0; i < frame.clicks.size(); i++){
-  					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
-  					 }
-  				System.out.println("---------------------------------------------------------");
 					frame.hull = giftWrap(frame.clicks);
-
-
-
-/*					frame.S.push(frame.clicks.get(0));
-					frame.S.push(frame.clicks.get(1));
-					frame.S.push(frame.clicks.get(2));
-					
-					Point firstIsAlsoLast = frame.clicks.get(0);
-					frame.clicks.add(firstIsAlsoLast);
-					
-					Point top;
-					Point nextToTop;
-					int m=3;
-					
-					for(int i =3; i < frame.clicks.size(); i++){
-					
-						 top = frame.S.pop();
-						 nextToTop = frame.S.pop();
-						 frame.S.push(nextToTop);
-						 frame.S.push(top);
-						 
-  					 Point min = frame.clicks.get(i);
-  					 double low = polarAngle(min, frame.clicks.get(i));
-  					 
-  					 for(int j =0; j < frame.clicks.size(); j++){
-  					 		if(ccw(nextToTop, top, frame.clicks.get(i))>= 0) {
-  					 			if(frame.S.size() > 3){
-  					 				frame.S.pop();
-  					 				}
-  					 			if((polarAngle(min, frame.clicks.get(j)) > low)){
-  					 				low = polarAngle(min, frame.clicks.get(j));
-  					 				min = frame.clicks.get(j);
-  					 				
-  					 				
-  					 			}else{
-                        Point temp = frame.S.pop();
-                        frame.S.pop();
-                        frame.S.push(temp);
-                     }
-  					 		}
-  					 		m++;
-  					 		//swapPoints(m,j);
-  					 }*/
-/*  					 frame.S.push(frame.clicks.get(i));
-						 System.out.println("Pushed = " + frame.clicks.get(i));
-						 
-  					 frame.hull.add(min);
-  				 }*/
-  			//	 System.out.println("Stack = " + frame.S.toString());
-  				 
   				 for(int i =0; i < frame.hull.size(); i++){
   					 System.out.println("  Hull Points = " + frame.hull.get(i).getX() + " , " + frame.hull.get(i).getY());
-/*                Vector<Point> temp = new Vector<Point>();
-                temp = giftWrap(frame.clicks);
-                for (int j = 0; temp.size(); j++){
-                  frame.hull.add(temp.get(j));
-                  frame.clicks.remove(temp.get(j));*/
-                //}
-             //System.out.println("reached");
   				 }
   				 frame.repaint();
   				 frame.calculate.setEnabled(false);
@@ -284,7 +183,6 @@ class Actions implements ActionListener {
     }
 
     /*Switches minimum Point with point 0*/
-    //System.out.println("minX = " + minX);
     swapPoints(0, loc);
     return minPoint;    
   }
@@ -301,7 +199,6 @@ class Actions implements ActionListener {
       endPoint = S.get(0);
       for(int j = 1; j < S.size(); j++){
         if(endPoint == pointOnHull  || ccw(pointOnHull, endPoint, S.get(j)) == -1){
-          System.out.println("This was reached " + j);
           endPoint = S.get(j);
         }
       }
