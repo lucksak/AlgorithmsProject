@@ -22,8 +22,8 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
 	int x=0, y=0;
 	String events ="";
-	//public Vector<Integer> xclicks = new Vector<Integer>();
-	//public Vector<Integer> yclicks = new Vector<Integer>();
+/*	public Vector<Integer> xclicks = new Vector<Integer>();
+	public Vector<Integer> yclicks = new Vector<Integer>();*/
 	
 	public Vector<Point> clicks = new Vector<Point>();//A vector of Point
 	public Vector<Point> hull = new Vector<Point>();
@@ -65,14 +65,14 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
      
      }
      if(flag == true){
-/*
+      System.out.println("REACHED!");
      	g.setColor(Color.BLUE);
-     for(int i = 0; i < hull.size()-1; i++){
-    	g.drawLine((int)(hull.get(i).getX())-3,(int)(hull.get(i).getY())-26,(int)(clicks.get(i+1).getX()-3),(int)(clicks.get(i+1).getY()-26));
+     for(int y = 0; y < hull.size()-1; y++){
+    	g.drawLine((int)(hull.get(y).getX())-3,(int)(hull.get(y).getY())-26,(int)(hull.get(y+1).getX()-3),(int)(hull.get(y+1).getY()-26));
      	}
-     	g.drawLine((int)(hull.get(hull.size()-1).getX()-3),(int)(hull.get(hull.size()-1).getY()-26),(int)(clicks.get(0).getX()-3),(int)(clicks.get(0).getY()-26));
-   */  
-     g.setColor(Color.GREEN);
+     	g.drawLine((int)(hull.get(hull.size()-1).getX()-3),(int)(hull.get(hull.size()-1).getY()-26),(int)(hull.get(0).getX()-3),(int)(hull.get(0).getY()-26));
+     
+/*     g.setColor(Color.GREEN);
      Point First = S.pop();
      Point Second =  S.pop();
      	
@@ -82,7 +82,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
      	Second = S.pop();
      }
      g.drawLine((int)(First.getX())-3,(int)(First.getY())-26,(int)(Second.getX()-3),(int)(Second.getY()-26));
-     
+     */
      }
   	}
   
@@ -150,33 +150,13 @@ class Actions implements ActionListener {
 			
   		if(e.getSource() == frame.calculate) {
   			frame.flag = true;
-  			double minY = frame.clicks.get(0).getY();
-  			int loc = 0;
-  			Point minPoint = frame.clicks.get(0);
-  			System.out.println("CALCULATE PUSH");
-  				//If the calculate button is pushed
-  				for(int i =0; i < frame.clicks.size(); i++){
-  					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
-  					 if(frame.clicks.get(i).getY() < minY){
-  					 	loc = i;
-  					 	minY = frame.clicks.get(i).getY();
-  					 	minPoint = frame.clicks.get(i);
-  					 }
-  				}
-  				/*Switches minimum Point with point 0*/
-  				swapPoints(0, loc);
-  				System.out.println(" Switched zero with " + loc);
-  				
-  				for(int i =0; i < frame.clicks.size(); i++){
-  					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
-  				 }
-  				System.out.println("minY = " + minY);
-					
-					sort();
-					System.out.println("Sorted");
-					// Sorts by polar angle
-					
-					//This is where we fix the convex hull problem!
+        Point minXPoint = minX(frame.clicks);
+        System.out.println("Min X Point = " + minXPoint.getX() + "," +minXPoint.getY());
+
+				sort();
+				System.out.println("Sorted");
+				// Sorts by polar angle
+				//This is where we fix the convex hull problem!
 					
 				
 					System.out.println("---------------------------------------------------------");
@@ -184,11 +164,11 @@ class Actions implements ActionListener {
   					 System.out.println(" Points = " + frame.clicks.get(i).getX() + " , " + frame.clicks.get(i).getY());
   					 }
   				System.out.println("---------------------------------------------------------");
-					
-				//	int N = frame.clicks.size();
-								
-					
-					frame.S.push(frame.clicks.get(0));
+					frame.hull = giftWrap(frame.clicks);
+
+
+
+/*					frame.S.push(frame.clicks.get(0));
 					frame.S.push(frame.clicks.get(1));
 					frame.S.push(frame.clicks.get(2));
 					
@@ -227,16 +207,23 @@ class Actions implements ActionListener {
   					 		}
   					 		m++;
   					 		//swapPoints(m,j);
-  					 }
-  					 frame.S.push(frame.clicks.get(i));
+  					 }*/
+/*  					 frame.S.push(frame.clicks.get(i));
 						 System.out.println("Pushed = " + frame.clicks.get(i));
 						 
   					 frame.hull.add(min);
-  				 }
-  				 System.out.println("Stack = " + frame.S.toString());
+  				 }*/
+  			//	 System.out.println("Stack = " + frame.S.toString());
   				 
   				 for(int i =0; i < frame.hull.size(); i++){
   					 System.out.println("  Hull Points = " + frame.hull.get(i).getX() + " , " + frame.hull.get(i).getY());
+/*                Vector<Point> temp = new Vector<Point>();
+                temp = giftWrap(frame.clicks);
+                for (int j = 0; temp.size(); j++){
+                  frame.hull.add(temp.get(j));
+                  frame.clicks.remove(temp.get(j));*/
+                //}
+             //System.out.println("reached");
   				 }
   				 frame.repaint();
   				 frame.calculate.setEnabled(false);
@@ -282,6 +269,47 @@ class Actions implements ActionListener {
 		frame.clicks.setElementAt(frame.clicks.get(A), B);
 		frame.clicks.setElementAt(tempB, A);
 	}
+
+  public Point minX(Vector<Point> S){
+    double minX = S.get(0).getY();
+    int loc = 0;
+    Point minPoint = S.get(0);
+    //If the calculate button is pushed
+    for(int i =0; i < S.size(); i++){
+        if(S.get(i).getX() < minX){
+          loc = i;
+          minX = S.get(i).getX();
+          minPoint = S.get(i);
+        }
+    }
+
+    /*Switches minimum Point with point 0*/
+    //System.out.println("minX = " + minX);
+    swapPoints(0, loc);
+    return minPoint;    
+  }
+  public Vector<Point> giftWrap(Vector<Point> S){
+    Vector<Point> wrap = new Vector<Point>();
+    Point minimum = minX(S);
+    Point pointOnHull = minimum;
+    Point endPoint = new Point();
+    int i = 0;
+    int small;
+
+    do{
+      wrap.add(pointOnHull);
+      endPoint = S.get(0);
+      for(int j = 1; j < S.size(); j++){
+        if(endPoint == pointOnHull  || ccw(pointOnHull, endPoint, S.get(j)) == -1){
+          System.out.println("This was reached " + j);
+          endPoint = S.get(j);
+        }
+      }
+      pointOnHull = endPoint;
+      i++;
+    }while(endPoint != minimum);
+    return wrap;
+  }
 	
 	/*Super awesome bubble sort!  Sort by polarAngle*/
 	public void sort(){
@@ -298,6 +326,8 @@ class Actions implements ActionListener {
 			}
 			return;
 	}
+
+
 	
 	
 	/*
@@ -307,6 +337,14 @@ class Actions implements ActionListener {
 function ccw(p1, p2, p3):
     return (p2.x - p1.x)*(p3.y - p1.y) - (p2.y - p1.y)*(p3.x - p1.x)*/
     public double ccw(Point p1, Point p2, Point p3){
-    	return ((p2.getX() - p1.getX())*(p3.getY() - p1.getY()) - (p2.getY() - p1.getY())*(p3.getX() - p1.getX()));
+        double orien = ((p2.getX() - p1.getX())*(p3.getY() - p1.getY()) - (p2.getY() - p1.getY())*(p3.getX() - p1.getX()));
+
+        if(orien > 0){
+          return -1;
+        }
+        if(orien < 0){
+          return 1;
+        }
+    	return 0;
     }
  }
