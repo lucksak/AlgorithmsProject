@@ -60,18 +60,14 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
       for(int i = 0; i < clicks.size(); i++){
            	g.setColor(Color.RED);
   			   g.fillOval((int)(clicks.get(i).getX())-7,(int)(clicks.get(i).getY())-30,8,8);    
-         }
-        
-     
+         }     
      }
      if(flag == true){
-      System.out.println("REACHED!");
      	g.setColor(Color.BLUE);
      for(int y = 0; y < hull.size()-1; y++){
     	g.drawLine((int)(hull.get(y).getX())-3,(int)(hull.get(y).getY())-26,(int)(hull.get(y+1).getX()-3),(int)(hull.get(y+1).getY()-26));
      	}
      	g.drawLine((int)(hull.get(hull.size()-1).getX()-3),(int)(hull.get(hull.size()-1).getY()-26),(int)(hull.get(0).getX()-3),(int)(hull.get(0).getY()-26));
-
      }
   	}
   
@@ -97,10 +93,7 @@ public class GrahamSchmidt extends JFrame implements MouseListener{
 
  public static void main (String args[]) {
   GrahamSchmidt frame = new GrahamSchmidt();
-   
   Actions action = new Actions(frame);
-  
-
  }
 }
 class Actions implements ActionListener {
@@ -113,19 +106,10 @@ class Actions implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
   		if(e.getSource() == frame.calculate) {
-  			frame.flag = true;
-        Point minXPoint = minX(frame.clicks);
-				sort();
-				System.out.println("Sorted");
-				// Sorts by polar angle
-				//This is where we fix the convex hull problem!
-					
-					frame.hull = giftWrap(frame.clicks);
-  				 for(int i =0; i < frame.hull.size(); i++){
-  					 System.out.println("  Hull Points = " + frame.hull.get(i).getX() + " , " + frame.hull.get(i).getY());
-  				 }
-  				 frame.repaint();
-  				 frame.calculate.setEnabled(false);
+  			frame.flag = true;		
+				frame.hull = giftWrap(frame.clicks);
+    		frame.repaint();
+  			frame.calculate.setEnabled(false);
   		}
   }
   /*Returns the cross product of two points in R2*/
@@ -181,7 +165,6 @@ class Actions implements ActionListener {
           minPoint = S.get(i);
         }
     }
-
     /*Switches minimum Point with point 0*/
     swapPoints(0, loc);
     return minPoint;    
@@ -207,27 +190,7 @@ class Actions implements ActionListener {
     }while(endPoint != minimum);
     return wrap;
   }
-	
-	/*Super awesome bubble sort!  Sort by polarAngle*/
-	public void sort(){
-		int position, scan;
-			for(position = (frame.clicks.size()); position > 0; position--)
-			{
-				for(scan = 0; scan < (position - 1); scan++)
-				{
-					if(polarAngle(frame.clicks.get(0), frame.clicks.get(scan)) < polarAngle(frame.clicks.get(0), frame.clicks.get(scan+1)))
-						{
-							swapPoints(scan, scan+1);
-						}
-				}
-			}
-			return;
-	}
-
-
-	
-	
-	/*
+		/*
 	# Three points are a counter-clockwise turn if ccw > 0, clockwise if
 # ccw < 0, and collinear if ccw = 0 because ccw is a determinant that
 # gives the signed area of the triangle formed by p1, p2 and p3.
