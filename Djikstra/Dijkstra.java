@@ -14,8 +14,68 @@ import java.lang.Math;
 public class Dijkstra extends JFrame implements MouseListener {
  Image background;
  Point[] point = new Point[45];
+ 
+
+
+/*= {v0, v1, v2, v3,v4,v5,v6,v7,v8,v9,v10,
+  v11,v12,v13,v14,v15,v16,v17,v18,v19
+  ,v20,v21,v22,v23,v24,v25,v26,v27,v28
+  ,v29,v30,v31,v32,v33,v34,v35,v36,v37,
+  v38,v39,v40,v41,v42,v43,v44};
+*/
 // public Vector<Point> points = new Vector<Point>();//A vector of Point
  //LIMIT CLICKS TO ONLY IN PICTURE
+/*
+  public Vertex v0 = new Vertex();
+  public Vertex v1 = new Vertex();
+  public Vertex v2 = new Vertex();
+  public Vertex v3 = new Vertex();
+  public Vertex v4 = new Vertex();
+  public Vertex v5 = new Vertex();
+  public Vertex v6 = new Vertex();
+  public Vertex v7 = new Vertex();
+  public Vertex v8 = new Vertex();
+  public Vertex v9 = new Vertex();
+  public Vertex v10 = new Vertex();
+  public Vertex v11 = new Vertex();
+  public Vertex v12 = new Vertex();
+  public Vertex v13 = new Vertex();
+  public Vertex v14 = new Vertex();
+  public Vertex v15 = new Vertex();
+  public Vertex v16 = new Vertex();
+  public Vertex v17 = new Vertex();
+  public Vertex v18 = new Vertex();
+  public Vertex v19 = new Vertex();
+  public Vertex v20 = new Vertex();
+  public Vertex v21 = new Vertex();
+  public Vertex v22 = new Vertex();
+  public Vertex v23 = new Vertex();
+  public Vertex v24 = new Vertex();
+  public Vertex v25 = new Vertex();
+  public Vertex v26 = new Vertex();
+  public Vertex v27 = new Vertex();
+  public Vertex v28 = new Vertex();
+  public Vertex v29 = new Vertex();
+  public Vertex v30 = new Vertex();
+  public Vertex v31 = new Vertex();
+  public Vertex v32 = new Vertex();
+  public Vertex v33 = new Vertex();
+  public Vertex v34 = new Vertex();
+  public Vertex v35 = new Vertex();
+  public Vertex v36 = new Vertex();
+  public Vertex v37 = new Vertex();
+  public Vertex v38 = new Vertex();
+  public Vertex v39 = new Vertex();
+  public Vertex v40 = new Vertex();
+  public Vertex v41 = new Vertex();
+  public Vertex v42 = new Vertex();
+  public Vertex v43 = new Vertex();
+  public Vertex v44 = new Vertex();
+  
+  */
+  
+  
+   
  public Dijkstra () {
    setPoints();
    setContentPane(new Panel());
@@ -52,8 +112,17 @@ public class Dijkstra extends JFrame implements MouseListener {
 	public void mouseEntered(MouseEvent evt){};
 	public void mouseExited(MouseEvent evt){};
 
- class Panel extends JPanel {
-   
+double Average(Point p1, Point p2){
+  if(Math.abs(p1.getX() - p2.getX()) < 10){
+    double average = Math.abs(p2.getY() - p1.getY());
+    return average;
+  }else{
+    double average = Math.abs(p2.getX() - p1.getX());
+    return average;
+    }       
+         
+  } 
+ class Panel extends JPanel {   
 
   @Override
   public void paintComponent(Graphics g) {
@@ -127,16 +196,25 @@ catch(IOException e){
    point[42].setLocation(573,385);
    point[43].setLocation(603,408);
    point[44].setLocation(605,384);
-   
+   int count = 0;
+   for(int i = 0; i < 45; i ++){
+      for(int j = 0; j < 10; j++){
+        double average = Average(point[i],point[j]);
+        count = count + 1;
+        System.out.println("Point 1 x " + point[i].getX() + " Point 1 y " + point[i].getY() + " Point 2 x " + 
+          point[j].getX() + " Point 2 y " + point[j].getY() + " average: " + average + " count " + count);
 
-
-   
+      }
+   }
 }
   
  public static void main (String args[]) {
-  Dijkstra frame = new Dijkstra();
-  Vertex v0 = new Vertex();
- }
+    Dijkstra frame = new Dijkstra();
+    Vertex[] vertices = new Vertex[45];
+    for(int i = 0; i < 45; i++){
+      vertices[i] = new Vertex();
+    }
+  }
 }
 class Vertex implements Comparable<Vertex>{
   // public final String name;
@@ -158,20 +236,9 @@ class Edge{
     public Edge(Vertex argTarget, double argWeight){
          target = argTarget;
          weight = argWeight; 
-}
+    }
 
 }
 
-class weightedAverage{
-      
-   public double Average(Point p1, Point p2){
-      if(abs(p1.getX() - p2.getX()) < 10){
-         double average = abs(p2.getY() - p1.getY());
-      }else{
-         double average = abs(p2.getX() - p1.getX())
-       }       
-   return average;      
-   }
-   
-}
+
 
