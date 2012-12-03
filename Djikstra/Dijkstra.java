@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
+import java.lang.Math;
 
 public class Dijkstra extends JFrame implements MouseListener {
  Image background;
@@ -164,13 +165,13 @@ class Edge{
 class weightedAverage{
       
    public double Average(Point p1, Point p2){
-      double average = p2.getX() - p1.getX();
-      if(average > 0){
-         return average;
-      }
-      else{
-         return average * -1;
-      }
-   } 
+      if(abs(p1.getX() - p2.getX()) < 10){
+         double average = abs(p2.getY() - p1.getY());
+      }else{
+         double average = abs(p2.getX() - p1.getX())
+       }       
+   return average;      
+   }
+   
 }
 
