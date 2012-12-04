@@ -20,6 +20,7 @@ public class Dijkstra extends JFrame implements MouseListener {
  public Point[] point = new Point[45];
  public boolean flagA = false;
  public boolean flagB = false;
+ public boolean flagC = false;
  public Point closePointA = new Point();
  public Point closePointB = new Point();
  public List<Vertex> selectedPath = new ArrayList<Vertex>();
@@ -160,7 +161,7 @@ double Average(Point p1, Point p2){
       g.setColor(Color.BLUE);
       g.fillOval((int)(closePointB.getX())-10,(int)(closePointB.getY())-30,20,20);
    }
-    if(flagA == true && flagB == true){
+    if(flagA == true && flagB == true && flagC == true){
       g.setColor(Color.BLACK);
       int p = -1;
       for(int i = 0; i < selectedPath.size(); i++){
@@ -168,7 +169,11 @@ double Average(Point p1, Point p2){
           p = i;
         }
       }
-      g.drawLine((int)(closePointA.getX()),(int)(closePointA.getY()-20),(int)(closePointB.getX()),(int)(closePointB.getY()-20));
+      System.out.println("NUMBER " +p);
+      if(p > 0){
+         g.drawLine((int)(closePointA.getX()),(int)(closePointA.getY()-20),(int)(selectedPath.get(p).point.getX()),(int)(selectedPath.get(p).point.getY()-20));
+      }
+     
     }
     }
  }
@@ -386,12 +391,13 @@ catch(IOException e){
               System.out.println("Path: " + "(" + shortPath.get(i).point.getX() + "," + shortPath.get(i).point.getY() + ")" );
             }
           }
+          frame.flagC = true;
           break;
         }                   
 
       }
     }
-    
+    frame.repaint();
 
     //
   }
