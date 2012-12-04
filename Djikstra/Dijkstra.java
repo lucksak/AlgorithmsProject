@@ -17,9 +17,11 @@ import java.lang.Math;
 
 public class Dijkstra extends JFrame implements MouseListener {
  Image background;
- Point[] point = new Point[45];
- 
-
+ public Point[] point = new Point[45];
+ public boolean flagA = false;
+ public boolean flagB = false;
+ public Point closePointA = new Point();
+ public Point closePointB = new Point();
 
 /*= {v0, v1, v2, v3,v4,v5,v6,v7,v8,v9,v10,
   v11,v12,v13,v14,v15,v16,v17,v18,v19
@@ -96,6 +98,32 @@ public class Dijkstra extends JFrame implements MouseListener {
        // if(flag == false){
 		//	Point temp = new Point();
 			System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
+      Point temp = new Point();
+      temp.setLocation(evt.getX(), evt.getY());
+
+
+      if(flagA == false && flagB == false){
+        flagA = true;
+        double closest = 999999;
+        for(int i = 0; i < 45; i++){
+          if(Math.sqrt((temp.getX() - point[i].getX() + temp.getY() - point[i].getY())) < closest){
+            closest = Math.sqrt(((temp.getX() - point[i].getX())*(temp.getX() - point[i].getX())) + (temp.getY() - point[i].getY())*(temp.getY() - point[i].getY()));
+            closePointA = point[i];
+          }
+        }
+        repaint();
+      }
+      if(flagB == false && flagA == true){
+        flagB = true;
+        double closest = 999999;
+          for(int i = 0; i < 45; i++){
+            if(Math.sqrt((temp.getX() - point[i].getX() + temp.getY() - point[i].getY())) < closest){
+              closest = Math.sqrt(((temp.getX() - point[i].getX())*(temp.getX() - point[i].getX())) + (temp.getY() - point[i].getY())*(temp.getY() - point[i].getY()));
+              closePointB = point[i];
+            }
+          }
+        repaint();
+      }
 		  //  if(evt.getX() > 0 && evt.getX() <800 && evt.getY() > 0 && evt.getY() <500){
 				    //xclicks.add(evt.getX());
 				    //yclicks.add(evt.getY());
@@ -135,6 +163,14 @@ double Average(Point p1, Point p2){
 
    for(int i = 0; i < 45; i++){
       g.fillOval((int)(point[i].getX())-10,(int)(point[i].getY())-30,20,20);
+   }
+   if(flagA == true && flagB == false){
+    g.setColor(Color.RED);
+    g.fillOval((int)(closePointA.getX())-10,(int)(closePointA.getY())-30,20,20);
+   }
+    if(flagA == true && flagB == true){
+      g.setColor(Color.BLUE);
+      g.fillOval((int)(closePointB.getX())-10,(int)(closePointB.getY())-30,20,20);
    }
   }
  }
@@ -204,9 +240,11 @@ catch(IOException e){
   
  public static void main (String args[]) {
     Dijkstra frame = new Dijkstra();
-    Vertex[] vertices = new Vertex[3];
-    for(int i = 0; i < 3; i++){
+    Vertex[] vertices = new Vertex[45];
+    frame.setPoints();
+    for(int i = 0; i <45 ; i++){
       vertices[i] = new Vertex();
+      vertices[i].point = frame.point[i];
     }
 
     vertices[0].adjacencies = new Edge[]{new Edge(vertices[1],123.0),
@@ -329,13 +367,17 @@ catch(IOException e){
     vertices[43].adjacencies = new Edge[]{new Edge(vertices[44],24.0)};
     vertices[44].adjacencies = new Edge[]{new Edge(vertices[40],52.0),
                                           new Edge(vertices[42],32.0),
-
+                                          new Edge(vertices[43],24.0)};
+    //Defining the starting point                                      
     pathBetweenPoints(vertices[0]);
     for(Vertex ver : vertices){
-      System.out.println("Distance to " + ": " + ver.minDistance);
+      System.out.println("Distance to " + "(" + ver.point.getX() + "," + ver.point.getY() + ")" + ": " + ver.minDistance);
       List<Vertex> shortPath = shortestPath(ver);
-      System.out.println("Path: " + shortPath);
+      for(int i = 0; i < shortPath.size(); i++){
+        System.out.println("Path: " + "(" + shortPath.get(i).point.getX() + "," + shortPath.get(i).point.getY() + ")" );
+      }
     }
+    //
   }
   public static void pathBetweenPoints(Vertex S){
     S.minDistance = 0.0;
