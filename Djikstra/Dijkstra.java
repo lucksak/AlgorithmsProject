@@ -106,23 +106,25 @@ public class Dijkstra extends JFrame implements MouseListener {
         flagA = true;
         double closest = 999999;
         for(int i = 0; i < 45; i++){
-          if(Math.sqrt((temp.getX() - point[i].getX() + temp.getY() - point[i].getY())) < closest){
+          if(Math.sqrt(((temp.getX() - point[i].getX())*(temp.getX() - point[i].getX())) + (temp.getY() - point[i].getY())*(temp.getY() - point[i].getY())) < closest){
             closest = Math.sqrt(((temp.getX() - point[i].getX())*(temp.getX() - point[i].getX())) + (temp.getY() - point[i].getY())*(temp.getY() - point[i].getY()));
             closePointA = point[i];
           }
         }
         repaint();
+        return;
       }
       if(flagB == false && flagA == true){
         flagB = true;
         double closest = 999999;
           for(int i = 0; i < 45; i++){
-            if(Math.sqrt((temp.getX() - point[i].getX() + temp.getY() - point[i].getY())) < closest){
+            if(Math.sqrt(((temp.getX() - point[i].getX())*(temp.getX() - point[i].getX())) + (temp.getY() - point[i].getY())*(temp.getY() - point[i].getY())) < closest){
               closest = Math.sqrt(((temp.getX() - point[i].getX())*(temp.getX() - point[i].getX())) + (temp.getY() - point[i].getY())*(temp.getY() - point[i].getY()));
               closePointB = point[i];
             }
           }
         repaint();
+        return;
       }
 		  //  if(evt.getX() > 0 && evt.getX() <800 && evt.getY() > 0 && evt.getY() <500){
 				    //xclicks.add(evt.getX());
@@ -164,11 +166,11 @@ double Average(Point p1, Point p2){
    for(int i = 0; i < 45; i++){
       g.fillOval((int)(point[i].getX())-10,(int)(point[i].getY())-30,20,20);
    }
-   if(flagA == true && flagB == false){
+   if(flagA == true){
     g.setColor(Color.RED);
     g.fillOval((int)(closePointA.getX())-10,(int)(closePointA.getY())-30,20,20);
    }
-    if(flagA == true && flagB == true){
+    if(flagB == true){
       g.setColor(Color.BLUE);
       g.fillOval((int)(closePointB.getX())-10,(int)(closePointB.getY())-30,20,20);
    }
