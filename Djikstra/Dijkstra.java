@@ -1,3 +1,7 @@
+/**
+ *@author Matthew Clark, Ryan Crawford, Mehedi Wahid
+ *@version 1.0
+ */
 import javax.swing.*;
 import java.awt.*;
 import javax.imageio.*;
@@ -257,6 +261,7 @@ catch(IOException e){
 class Vertex implements Comparable<Vertex>{
   // public final String name;
     public Edge[] adjacencies;
+    public Point point;
     public double minDistance = 9999999;//Some really high initial number
     public Vertex previous;
     //public Vertex(String argName) { name = argName; }
