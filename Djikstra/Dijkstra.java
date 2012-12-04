@@ -210,16 +210,54 @@ catch(IOException e){
   
  public static void main (String args[]) {
     Dijkstra frame = new Dijkstra();
-    Vertex[] vertices = new Vertex[45];
-    for(int i = 0; i < 45; i++){
+    Vertex[] vertices = new Vertex[3];
+    for(int i = 0; i < 3; i++){
       vertices[i] = new Vertex();
     }
+    vertices[0].adjacencies = new Edge[]{new Edge(vertices[1],123.0)};
+    vertices[1].adjacencies = new Edge[]{new Edge(vertices[0],123.0),
+                                         new Edge(vertices[2],173.0)};
+    vertices[2].adjacencies = new Edge[]{new Edge(vertices[1],173.0)};
+    pathBetweenPoints(vertices[0]);
+    for(Vertex ver : vertices){
+      System.out.println("Distance to " + ": " + ver.minDistance);
+      List<Vertex> shortPath = shortestPath(ver);
+      System.out.println("Path: " + shortPath);
+    }
+  }
+  public static void pathBetweenPoints(Vertex S){
+    S.minDistance = 0.0;
+    PriorityQueue<Vertex> vQueue = new PriorityQueue<Vertex>();
+    vQueue.add(S);
+    while(!vQueue.isEmpty()){
+      Vertex u = vQueue.poll();
+      for(Edge edge : u.adjacencies){
+        Vertex vTemp = edge.target;
+        double weight = edge.weight;
+        double disTU = u.minDistance + weight;
+          if(disTU < vTemp.minDistance){
+            vQueue.remove(vTemp);
+            vTemp.minDistance = disTU;
+            vTemp.previous = u;
+            vQueue.add(vTemp);
+          }
+      }
+    }
+
+  }
+  public static List<Vertex> shortestPath(Vertex target){
+    List<Vertex> shortPath = new ArrayList<Vertex>();
+    for(Vertex ver = target; ver != null; ver = ver.previous){
+      shortPath.add(ver);
+    }
+    Collections.reverse(shortPath);
+    return shortPath;
   }
 }
 class Vertex implements Comparable<Vertex>{
   // public final String name;
     public Edge[] adjacencies;
-    public double minDistance;
+    public double minDistance = 9999999;//Some really high initial number
     public Vertex previous;
     //public Vertex(String argName) { name = argName; }
     //public String toString() { return name; }
