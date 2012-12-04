@@ -26,64 +26,6 @@ public class Dijkstra extends JFrame implements MouseListener {
  public Point closePointB = new Point();
  public List<Vertex> selectedPath = new ArrayList<Vertex>();
 
-/*= {v0, v1, v2, v3,v4,v5,v6,v7,v8,v9,v10,
-  v11,v12,v13,v14,v15,v16,v17,v18,v19
-  ,v20,v21,v22,v23,v24,v25,v26,v27,v28
-  ,v29,v30,v31,v32,v33,v34,v35,v36,v37,
-  v38,v39,v40,v41,v42,v43,v44};
-*/
-// public Vector<Point> points = new Vector<Point>();//A vector of Point
- //LIMIT CLICKS TO ONLY IN PICTURE
-/*
-  public Vertex v0 = new Vertex();
-  public Vertex v1 = new Vertex();
-  public Vertex v2 = new Vertex();
-  public Vertex v3 = new Vertex();
-  public Vertex v4 = new Vertex();
-  public Vertex v5 = new Vertex();
-  public Vertex v6 = new Vertex();
-  public Vertex v7 = new Vertex();
-  public Vertex v8 = new Vertex();
-  public Vertex v9 = new Vertex();
-  public Vertex v10 = new Vertex();
-  public Vertex v11 = new Vertex();
-  public Vertex v12 = new Vertex();
-  public Vertex v13 = new Vertex();
-  public Vertex v14 = new Vertex();
-  public Vertex v15 = new Vertex();
-  public Vertex v16 = new Vertex();
-  public Vertex v17 = new Vertex();
-  public Vertex v18 = new Vertex();
-  public Vertex v19 = new Vertex();
-  public Vertex v20 = new Vertex();
-  public Vertex v21 = new Vertex();
-  public Vertex v22 = new Vertex();
-  public Vertex v23 = new Vertex();
-  public Vertex v24 = new Vertex();
-  public Vertex v25 = new Vertex();
-  public Vertex v26 = new Vertex();
-  public Vertex v27 = new Vertex();
-  public Vertex v28 = new Vertex();
-  public Vertex v29 = new Vertex();
-  public Vertex v30 = new Vertex();
-  public Vertex v31 = new Vertex();
-  public Vertex v32 = new Vertex();
-  public Vertex v33 = new Vertex();
-  public Vertex v34 = new Vertex();
-  public Vertex v35 = new Vertex();
-  public Vertex v36 = new Vertex();
-  public Vertex v37 = new Vertex();
-  public Vertex v38 = new Vertex();
-  public Vertex v39 = new Vertex();
-  public Vertex v40 = new Vertex();
-  public Vertex v41 = new Vertex();
-  public Vertex v42 = new Vertex();
-  public Vertex v43 = new Vertex();
-  public Vertex v44 = new Vertex();
-  
-  */
-  
-  
    
  public Dijkstra () {
    setPoints();
@@ -98,9 +40,8 @@ public class Dijkstra extends JFrame implements MouseListener {
  	public void mouseClicked(MouseEvent evt){};
 
 	public void mousePressed(MouseEvent evt){
-       // if(flag == false){
-		//	Point temp = new Point();
-			System.out.println(" MOUSE CLICKED" + " x= " + evt.getX() + " y= " + evt.getY());
+
+			
       Point temp = new Point();
       temp.setLocation(evt.getX(), evt.getY());
 
@@ -377,9 +318,9 @@ catch(IOException e){
                                           new Edge(vertices[43],24.0)};
     //Defining the starting point 
     boolean temp = false ;
-    while(temp == false){
-      //int temp;
-      System.out.println("true");
+    while(temp != true){
+      
+      System.out.print("");
       if(frame.flagA == true && frame.flagB == true){
         int p = -1;
         for(int k = 0; k < 45; k++){
@@ -394,15 +335,11 @@ catch(IOException e){
               frame.ver = ver;
               frame.selectedPath = shortestPath(ver);
             }
-           // System.out.println("Distance to " + "(" + ver.point.getX() + "," + ver.point.getY() + ")" + ": " + ver.minDistance);
-          //  List<Vertex> shortPath = shortestPath(ver);
-          //  for(int i = 0; i < shortPath.size(); i++){
-          //    System.out.println("Path: " + "(" + shortPath.get(i).point.getX() + "," + shortPath.get(i).point.getY() + ")" );
-           // }
+          
           }
           frame.flagC = true;
           temp = true;
-          break;
+          
         }                   
 
       }
@@ -441,13 +378,12 @@ catch(IOException e){
   }
 }
 class Vertex implements Comparable<Vertex>{
-  // public final String name;
+  
     public Edge[] adjacencies;
     public Point point;
     public double minDistance = 9999999;//Some really high initial number
     public Vertex previous;
-    //public Vertex(String argName) { name = argName; }
-    //public String toString() { return name; }
+
       public int compareTo(Vertex other)
    {
        return Double.compare(minDistance, other.minDistance);
