@@ -91,28 +91,32 @@ double Average(Point p1, Point p2){
   public void paintComponent(Graphics g) {
    
    g.drawImage(background,100,0,null);
-
+//print out the innitial nodes
    for(int i = 0; i < 45; i++){
       g.fillOval((int)(point[i].getX())-10,(int)(point[i].getY())-30,20,20);
    }
+   //print out the starting point node when clicked
    if(flagA == true){
     g.setColor(Color.RED);
     g.fillOval((int)(closePointA.getX())-10,(int)(closePointA.getY())-30,20,20);
    }
+   //print out the finish point node when clicked
     if(flagB == true){
       g.setColor(Color.BLUE);
       g.fillOval((int)(closePointB.getX())-10,(int)(closePointB.getY())-30,20,20);
    }
+
     if(flagA == true && flagB == true && flagC == true){
       g.setColor(Color.BLACK);
       int p = -1;
       for(int i = 0; i < selectedPath.size(); i++){
         if(selectedPath.get(i).point == closePointB){
-          System.out.println("Path: " + "(" + selectedPath.get(i).point.getX() + "," + selectedPath.get(i).point.getY() + ")" );
+          
           p = i;
         }
       }
-      System.out.println("NUMBER " +p);
+
+      //print out the line connecting all the point
       if(p > 0){
         for(int t =0; t < p; t++){
             g.drawLine((int)(selectedPath.get(t).point.getX()),(int)(selectedPath.get(t).point.getY()-20),(int)(selectedPath.get(t+1).point.getX()),(int)(selectedPath.get(t+1).point.getY()-20));
@@ -123,7 +127,7 @@ double Average(Point p1, Point p2){
     }
  }
  public void setBackground(){
-   
+   //add the background image
    try{
    background = ImageIO.read(new File("Screenshot-1.png"));
 }
@@ -133,7 +137,7 @@ catch(IOException e){
 }
  public void setPoints(){
 
-   
+   //create point objects
    for(int i = 0; i < 45; i++){
       point[i] = new Point();
 }
@@ -188,9 +192,11 @@ catch(IOException e){
   
  public static void main (String args[]) {
     Dijkstra frame = new Dijkstra();
-    Vertex[] vertices = new Vertex[45];
+    Vertex[] vertices = new Vertex[45];//create an array of vertex type
     frame.setPoints();
+    //iterate through the array making each on a vertex and giving it a point value
     for(int i = 0; i <45 ; i++){
+      System.out.println(i);
       vertices[i] = new Vertex();
       vertices[i].point = frame.point[i];
     }
