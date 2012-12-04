@@ -200,16 +200,7 @@ catch(IOException e){
    point[42].setLocation(573,385);
    point[43].setLocation(603,408);
    point[44].setLocation(605,384);
-   int count = 0;
-   for(int i = 0; i < 45; i ++){
-      for(int j = 0; j < 10; j++){
-        double average = Average(point[i],point[j]);
-        count = count + 1;
-        System.out.println("Point 1 x " + point[i].getX() + " Point 1 y " + point[i].getY() + " Point 2 x " + 
-          point[j].getX() + " Point 2 y " + point[j].getY() + " average: " + average + " count " + count);
-
-      }
-   }
+   
 }
   
  public static void main (String args[]) {
@@ -218,10 +209,128 @@ catch(IOException e){
     for(int i = 0; i < 3; i++){
       vertices[i] = new Vertex();
     }
-    vertices[0].adjacencies = new Edge[]{new Edge(vertices[1],123.0)};
+
+    vertices[0].adjacencies = new Edge[]{new Edge(vertices[1],123.0),
+                                         new Edge(vertices[3],69.0)};
     vertices[1].adjacencies = new Edge[]{new Edge(vertices[0],123.0),
+                                         new Edge(vertices[9],70.0),
                                          new Edge(vertices[2],173.0)};
-    vertices[2].adjacencies = new Edge[]{new Edge(vertices[1],173.0)};
+    vertices[2].adjacencies = new Edge[]{new Edge(vertices[1],173.0),
+                                         new Edge(vertices[7],82.0)};  
+    vertices[3].adjacencies = new Edge[]{new Edge(vertices[0],69.0),
+                                         new Edge(vertices[4],85.0),
+                                         new Edge(vertices[9],120.0)}; 
+    vertices[4].adjacencies = new Edge[]{new Edge(vertices[3],85.0),
+                                         new Edge(vertices[16],57.0),
+                                         new Edge(vertices[12],122.0)};
+    vertices[5].adjacencies = new Edge[]{new Edge(vertices[9],119.0),
+                                         new Edge(vertices[6],26.0),
+                                         new Edge(vertices[13],109.0),
+                                         new Edge(vertices[7],58.0)}; 
+    vertices[6].adjacencies = new Edge[]{new Edge(vertices[5],26.0)};
+    vertices[7].adjacencies = new Edge[]{new Edge(vertices[5],58.0),
+                                         new Edge(vertices[2],82.0),
+                                         new Edge(vertices[8],61.0),
+                                         new Edge(vertices[19],168.0)};
+    vertices[8].adjacencies = new Edge[]{new Edge(vertices[7],61.0),
+                                         new Edge(vertices[14],117.0),
+                                         new Edge(vertices[10],47.0)};
+    vertices[9].adjacencies = new Edge[]{new Edge(vertices[3],120.0),
+                                         new Edge(vertices[1],70.0),
+                                         new Edge(vertices[12],120.0),
+                                         new Edge(vertices[5],119.0)};
+    vertices[10].adjacencies = new Edge[]{new Edge(vertices[8],61.0),
+                                          new Edge(vertices[11],50.0),
+                                          new Edge(vertices[15],94.0)};
+    vertices[11].adjacencies = new Edge[]{new Edge(vertices[10],50.0),
+                                          new Edge(vertices[22],158.0)};
+    vertices[12].adjacencies = new Edge[]{new Edge(vertices[4],122.0),
+                                          new Edge(vertices[9],120.0),
+                                          new Edge(vertices[13],113.0),
+                                          new Edge(vertices[17],57.0)};
+    vertices[13].adjacencies = new Edge[]{new Edge(vertices[5],109.0),
+                                          new Edge(vertices[12],113.0),
+                                          new Edge(vertices[18],60.0)} ;                                  
+    vertices[14].adjacencies = new Edge[]{new Edge(vertices[8],117.0),
+                                          new Edge(vertices[10],94.0),
+                                          new Edge(vertices[21],50.0)};
+    vertices[15].adjacencies = new Edge[]{new Edge(vertices[10],94.0),
+                                          new Edge(vertices[14],43.0)};
+    vertices[16].adjacencies = new Edge[]{new Edge(vertices[4],57),
+                                          new Edge(vertices[17],123.0),
+                                          new Edge(vertices[23],59.0)};                                      
+    vertices[17].adjacencies = new Edge[]{new Edge(vertices[12],57.0),
+                                          new Edge(vertices[16],123.0),
+                                          new Edge(vertices[18],114.0 ),
+                                          new Edge(vertices[24],63.0)};
+    vertices[18].adjacencies = new Edge[]{new Edge(vertices[13],60.0),
+                                          new Edge(vertices[17],114.0),
+                                          new Edge(vertices[19],60.0),
+                                          new Edge(vertices[25],59.0)};
+    vertices[19].adjacencies = new Edge[]{new Edge(vertices[7],168.0),
+                                         new Edge(vertices[18],60.0),
+                                         new Edge(vertices[21],63.0),
+                                         new Edge(vertices[31],139.0)};
+    vertices[20].adjacencies = new Edge[]{new Edge(vertices[22],61.0)};
+    vertices[21].adjacencies = new Edge[]{new Edge(vertices[19],63.0),
+                                          new Edge(vertices[14],50.0),
+                                          new Edge(vertices[22],64.0),
+                                          new Edge(vertices[26],101.0)};
+    vertices[22].adjacencies = new Edge[]{new Edge(vertices[11],158.0),
+                                          new Edge(vertices[20],61.0)};
+    vertices[23].adjacencies = new Edge[]{new Edge(vertices[16],59.0),
+                                          new Edge(vertices[24],123.0),
+                                          new Edge(vertices[27],87.0)};
+    vertices[24].adjacencies = new Edge[]{new Edge(vertices[17],63.0),
+                                          new Edge(vertices[23],123.0),
+                                          new Edge(vertices[25],117.0),
+                                          new Edge(vertices[28],84.0)};
+    vertices[25].adjacencies = new Edge[]{new Edge(vertices[18],59.0),
+                                          new Edge(vertices[24],117.0),
+                                          new Edge(vertices[30],86.0)};
+    vertices[26].adjacencies = new Edge[]{new Edge(vertices[21],101.0)};
+    vertices[27].adjacencies = new Edge[]{new Edge(vertices[23],59.0),
+                                          new Edge(vertices[28],122.0),
+                                          new Edge(vertices[33],87.0)};
+    vertices[28].adjacencies = new Edge[]{new Edge(vertices[24],84.0),
+                                          new Edge(vertices[27],122.0),
+                                          new Edge(vertices[29],38.0),
+                                          new Edge(vertices[30],118.0)};
+    vertices[29].adjacencies = new Edge[]{new Edge(vertices[28],38.0)};
+    vertices[30].adjacencies = new Edge[]{new Edge(vertices[25],86.0),
+                                          new Edge(vertices[28],118.0),
+                                          new Edge(vertices[31],57.0),
+                                          new Edge(vertices[38],87.0)};
+    vertices[31].adjacencies = new Edge[]{new Edge(vertices[19],139.0),
+                                          new Edge(vertices[30],57.0),
+                                          new Edge(vertices[32],55.0)};
+    vertices[32].adjacencies = new Edge[]{new Edge(vertices[31],55.0)};
+    vertices[33].adjacencies = new Edge[]{new Edge(vertices[27],87.0),
+                                          new Edge(vertices[34],120.0)};
+    vertices[34].adjacencies = new Edge[]{new Edge(vertices[33],120.0),
+                                          new Edge(vertices[35],120.0),
+                                          new Edge(vertices[37],67.0)};
+    vertices[35].adjacencies = new Edge[]{new Edge(vertices[34],120.0),
+                                          new Edge(vertices[36],61.0)};
+    vertices[36].adjacencies = new Edge[]{new Edge(vertices[35],61.0),
+                                          new Edge(vertices[37],43.0)};
+    vertices[37].adjacencies = new Edge[]{new Edge(vertices[34],67.0),
+                                          new Edge(vertices[36],43.0),
+                                          new Edge(vertices[38],53.0)};
+    vertices[38].adjacencies = new Edge[]{new Edge(vertices[30],87.0),
+                                          new Edge(vertices[37],53.0),
+                                          new Edge(vertices[39],49.0),
+                                          new Edge(vertices[40],62.0)};
+    vertices[39].adjacencies = new Edge[]{new Edge(vertices[38],49.0)};
+    vertices[40].adjacencies = new Edge[]{new Edge(vertices[38],62.0),
+                                          new Edge(vertices[41],52.0),
+                                          new Edge(vertices[44],52.0)};
+    vertices[41].adjacencies = new Edge[]{new Edge(vertices[41],52.0)};
+    vertices[42].adjacencies = new Edge[]{new Edge(vertices[44],32.0)};
+    vertices[43].adjacencies = new Edge[]{new Edge(vertices[44],24.0)};
+    vertices[44].adjacencies = new Edge[]{new Edge(vertices[40],52.0),
+                                          new Edge(vertices[42],32.0),
+
     pathBetweenPoints(vertices[0]);
     for(Vertex ver : vertices){
       System.out.println("Distance to " + ": " + ver.minDistance);
