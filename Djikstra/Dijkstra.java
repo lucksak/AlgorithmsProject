@@ -166,7 +166,6 @@ catch(IOException e){
    point[9].setLocation(220,150);
    point[10].setLocation(215,435);
    point[11].setLocation(220,485);
-   point[12].setLocation(313,27);
    point[12].setLocation(316,152);
    point[13].setLocation(315,265);
    point[14].setLocation(325,390);
