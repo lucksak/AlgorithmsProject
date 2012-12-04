@@ -22,6 +22,7 @@ public class Dijkstra extends JFrame implements MouseListener {
  public boolean flagB = false;
  public Point closePointA = new Point();
  public Point closePointB = new Point();
+ public List<Vertex> selectedPath = new ArrayList<Vertex>();
 
 /*= {v0, v1, v2, v3,v4,v5,v6,v7,v8,v9,v10,
   v11,v12,v13,v14,v15,v16,v17,v18,v19
@@ -126,21 +127,6 @@ public class Dijkstra extends JFrame implements MouseListener {
         repaint();
         return;
       }
-		  //  if(evt.getX() > 0 && evt.getX() <800 && evt.getY() > 0 && evt.getY() <500){
-				    //xclicks.add(evt.getX());
-				    //yclicks.add(evt.getY());
-				    
-		//		    temp.setLocation(evt.getX(), evt.getY());
-				  //  clicks.add(temp);
-				  //  System.out.println(" Points = " + clicks.size());
-				 //   System.out.println(" Points x = " + clicks.get(clicks.size()-1).getX());
-				//    System.out.println(" Points y = " + clicks.get(clicks.size()-1).getY());
-				    
-				    //System.out.println(" X Vector size = " + xclicks.size());
-						//System.out.println(" Y Vector size = " + yclicks.size());
-		        //  repaint();
-     //       }
-  //   }
 }
 	public void mouseReleased(MouseEvent evt){};
 	public void mouseEntered(MouseEvent evt){};
@@ -174,7 +160,17 @@ double Average(Point p1, Point p2){
       g.setColor(Color.BLUE);
       g.fillOval((int)(closePointB.getX())-10,(int)(closePointB.getY())-30,20,20);
    }
-  }
+    if(flagA == true && flagB == true){
+      g.setColor(Color.BLACK);
+      int p = -1;
+      for(int i = 0; i < selectedPath.size(); i++){
+        if(selectedPath.get(i).point == closePointB){
+          p = i;
+        }
+      }
+      g.drawLine((int)(closePointA.getX()),(int)(closePointA.getY()-20),(int)(closePointB.getX()),(int)(closePointB.getY()-20));
+    }
+    }
  }
  public void setBackground(){
    
@@ -370,15 +366,33 @@ catch(IOException e){
     vertices[44].adjacencies = new Edge[]{new Edge(vertices[40],52.0),
                                           new Edge(vertices[42],32.0),
                                           new Edge(vertices[43],24.0)};
-    //Defining the starting point                                      
-    pathBetweenPoints(vertices[0]);
-    for(Vertex ver : vertices){
-      System.out.println("Distance to " + "(" + ver.point.getX() + "," + ver.point.getY() + ")" + ": " + ver.minDistance);
-      List<Vertex> shortPath = shortestPath(ver);
-      for(int i = 0; i < shortPath.size(); i++){
-        System.out.println("Path: " + "(" + shortPath.get(i).point.getX() + "," + shortPath.get(i).point.getY() + ")" );
+    //Defining the starting point  
+    while(true){
+      System.out.println("true");
+      if(frame.flagA == true && frame.flagB == true){
+        int p = -1;
+        for(int k = 0; k < 45; k++){
+          if(frame.point[k] == frame.closePointA){
+            p = k;
+          }
+        }  
+        if(p>0){
+          pathBetweenPoints(vertices[p]);
+          for(Vertex ver : vertices){
+            System.out.println("Distance to " + "(" + ver.point.getX() + "," + ver.point.getY() + ")" + ": " + ver.minDistance);
+            List<Vertex> shortPath = shortestPath(ver);
+            frame.selectedPath = shortPath;
+            for(int i = 0; i < shortPath.size(); i++){
+              System.out.println("Path: " + "(" + shortPath.get(i).point.getX() + "," + shortPath.get(i).point.getY() + ")" );
+            }
+          }
+          break;
+        }                   
+
       }
     }
+    
+
     //
   }
   public static void pathBetweenPoints(Vertex S){
