@@ -21,6 +21,7 @@ public class Dijkstra extends JFrame implements MouseListener {
  public boolean flagA = false;
  public boolean flagB = false;
  public boolean flagC = false;
+ public Vertex ver;
  public Point closePointA = new Point();
  public Point closePointB = new Point();
  public List<Vertex> selectedPath = new ArrayList<Vertex>();
@@ -166,12 +167,15 @@ double Average(Point p1, Point p2){
       int p = -1;
       for(int i = 0; i < selectedPath.size(); i++){
         if(selectedPath.get(i).point == closePointB){
+          System.out.println("Path: " + "(" + selectedPath.get(i).point.getX() + "," + selectedPath.get(i).point.getY() + ")" );
           p = i;
         }
       }
       System.out.println("NUMBER " +p);
       if(p > 0){
-         g.drawLine((int)(closePointA.getX()),(int)(closePointA.getY()-20),(int)(selectedPath.get(p).point.getX()),(int)(selectedPath.get(p).point.getY()-20));
+        for(int t =0; t < p; t++){
+            g.drawLine((int)(selectedPath.get(t).point.getX()),(int)(selectedPath.get(t).point.getY()-20),(int)(selectedPath.get(t+1).point.getX()),(int)(selectedPath.get(t+1).point.getY()-20));
+        }
       }
      
     }
@@ -371,8 +375,10 @@ catch(IOException e){
     vertices[44].adjacencies = new Edge[]{new Edge(vertices[40],52.0),
                                           new Edge(vertices[42],32.0),
                                           new Edge(vertices[43],24.0)};
-    //Defining the starting point  
-    while(true){
+    //Defining the starting point 
+    boolean temp = false ;
+    while(temp == false){
+      //int temp;
       System.out.println("true");
       if(frame.flagA == true && frame.flagB == true){
         int p = -1;
@@ -384,14 +390,18 @@ catch(IOException e){
         if(p>0){
           pathBetweenPoints(vertices[p]);
           for(Vertex ver : vertices){
-            System.out.println("Distance to " + "(" + ver.point.getX() + "," + ver.point.getY() + ")" + ": " + ver.minDistance);
-            List<Vertex> shortPath = shortestPath(ver);
-            frame.selectedPath = shortPath;
-            for(int i = 0; i < shortPath.size(); i++){
-              System.out.println("Path: " + "(" + shortPath.get(i).point.getX() + "," + shortPath.get(i).point.getY() + ")" );
+            if(ver.point == frame.closePointB){
+              frame.ver = ver;
+              frame.selectedPath = shortestPath(ver);
             }
+           // System.out.println("Distance to " + "(" + ver.point.getX() + "," + ver.point.getY() + ")" + ": " + ver.minDistance);
+          //  List<Vertex> shortPath = shortestPath(ver);
+          //  for(int i = 0; i < shortPath.size(); i++){
+          //    System.out.println("Path: " + "(" + shortPath.get(i).point.getX() + "," + shortPath.get(i).point.getY() + ")" );
+           // }
           }
           frame.flagC = true;
+          temp = true;
           break;
         }                   
 
