@@ -196,7 +196,7 @@ catch(IOException e){
     frame.setPoints();
     //iterate through the array making each on a vertex and giving it a point value
     for(int i = 0; i <45 ; i++){
-      System.out.println(i);
+
       vertices[i] = new Vertex();
       vertices[i].point = frame.point[i];
     }
@@ -335,6 +335,7 @@ catch(IOException e){
           }
         }  
         if(p>0){
+          //setting the closepoints and slected paths
           pathBetweenPoints(vertices[p]);
           for(Vertex ver : vertices){
             if(ver.point == frame.closePointB){
@@ -357,46 +358,50 @@ catch(IOException e){
   public static void pathBetweenPoints(Vertex S){
     S.minDistance = 0.0;
     PriorityQueue<Vertex> vQueue = new PriorityQueue<Vertex>();
-    vQueue.add(S);
-    while(!vQueue.isEmpty()){
-      Vertex u = vQueue.poll();
-      for(Edge edge : u.adjacencies){
+    vQueue.add(S);//add 0 to the queue so its not empty
+
+    while(!vQueue.isEmpty()){//whilke queue is not empty
+      Vertex u = vQueue.poll();//remove the head
+      for(Edge edge : u.adjacencies){//a for each loop to iterate through each edges adjacent values
         Vertex vTemp = edge.target;
         double weight = edge.weight;
-        double disTU = u.minDistance + weight;
-          if(disTU < vTemp.minDistance){
-            vQueue.remove(vTemp);
+        double disTU = u.minDistance + weight;//get min distance
+          if(disTU < vTemp.minDistance){//if its less than previous min distance
+            vQueue.remove(vTemp);//remove the previos smallest
             vTemp.minDistance = disTU;
             vTemp.previous = u;
-            vQueue.add(vTemp);
+            vQueue.add(vTemp);//add new smallest
           }
       }
     }
 
   }
+  //
   public static List<Vertex> shortestPath(Vertex target){
     List<Vertex> shortPath = new ArrayList<Vertex>();
     for(Vertex ver = target; ver != null; ver = ver.previous){
-      shortPath.add(ver);
+      shortPath.add(ver);//add the vertex to the shortest path list
     }
+    //reverss the path
     Collections.reverse(shortPath);
     return shortPath;
   }
 }
 class Vertex implements Comparable<Vertex>{
-  
-    public Edge[] adjacencies;
-    public Point point;
+    
+    public Edge[] adjacencies;//array of edges
+    public Point point;//give each vertex a point value
     public double minDistance = 9999999;//Some really high initial number
     public Vertex previous;
 
       public int compareTo(Vertex other)
    {
-       return Double.compare(minDistance, other.minDistance);
+       return Double.compare(minDistance, other.minDistance);//compare vertex
    }
 
 }
 class Edge{
+    //each edge has an associated vertex and a weight
     public Vertex target;
     public double weight;
 
