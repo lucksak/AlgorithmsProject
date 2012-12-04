@@ -194,7 +194,7 @@ catch(IOException e){
       vertices[i] = new Vertex();
       vertices[i].point = frame.point[i];
     }
-
+    //Created a vertex object for each and defining its edges
     vertices[0].adjacencies = new Edge[]{new Edge(vertices[1],123.0),
                                          new Edge(vertices[3],69.0)};
     vertices[1].adjacencies = new Edge[]{new Edge(vertices[0],123.0),
@@ -237,7 +237,7 @@ catch(IOException e){
                                           new Edge(vertices[12],113.0),
                                           new Edge(vertices[18],60.0)} ;                                  
     vertices[14].adjacencies = new Edge[]{new Edge(vertices[8],117.0),
-                                          new Edge(vertices[10],94.0),
+                                          new Edge(vertices[15],43.0),
                                           new Edge(vertices[21],50.0)};
     vertices[15].adjacencies = new Edge[]{new Edge(vertices[10],94.0),
                                           new Edge(vertices[14],43.0)};
