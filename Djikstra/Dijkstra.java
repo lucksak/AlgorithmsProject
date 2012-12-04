@@ -1,4 +1,19 @@
 /**
+ *Dijkstra CSCI 3070U
+ *The main purpose of this project is to show an implementation of the Convex Hull problem
+ *<ul>
+ *<li> Dijkstra - This class is used to create the GUI of the project.
+ *<ul>
+  *<li> Dijkstra - This is a constructor for the Dijkstra.
+  *<li> Panel -  draws the points coded into the source.
+  *<li> mousePressed - This collects points from the user.
+*</ul>
+  *<li> setPoints - sets all points on the image
+  *<li> pathBetweenPoints - finds the paths between the points
+  *<li> shortestPath - finds shortest path between the points
+  *<li> Vertex - Class to hold the vertex information
+  *<li> Edge - Class to hold the Edge information.
+ *</ul>
  *@author Matthew Clark, Ryan Crawford, Mehedi Wahid
  *@version 1.0
  */
